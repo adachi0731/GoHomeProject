@@ -1,6 +1,7 @@
 package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,9 +87,34 @@ public class LoginBean implements  fullneflowerBean{
 				session.setAttribute("passwd", passWo);
 
 				return "success";
+			}
+
+			/*
+			 * 該当件数が1件以外（０、もしくは２以上）の場合、
+			 * 入力項目ごとにチェックをし、ログイン画面へ遷移
+			 */
+			if("".equals(empNo)){
+				String param = "nullError";
+				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+				String erro = msgresult.getString(param); //errorメッセージ
+				request.setAttribute("erro", erro);
+				/*
+				 * IDが入力されてパスワードが入力された場合
+				 */
+
+			}else if("".equals(passWo)){
+				String param = "nullError";
+				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+				String erro = msgresult.getString(param); //errorメッセージ
+				request.setAttribute("erro", erro);
+				/*
+				 * 合致しないIDとパスワードともに入力された場合
+				 */
 			}else{
-				request.setAttribute("erro", "入力された社員番号またはパスワードが誤っています");
-				return "failure";
+				String param = "error";
+				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+				String erro = msgresult.getString(param); //errorメッセージ
+				request.setAttribute("erro", erro);
 			}
 
 
@@ -102,6 +128,7 @@ public class LoginBean implements  fullneflowerBean{
 		}finally{
 			cm.closeConnection();	//コネクションの切断
 		}
+		return "failure";
 	}
 }
 

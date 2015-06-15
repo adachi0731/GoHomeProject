@@ -3,7 +3,7 @@ package com.fullneflower.ghp.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+import java.util.ResourceBundle;
 /**
  *
  * [機 能] データベースの接続と切断ドライバークラス<br>
@@ -22,23 +22,39 @@ public class ConnectionManager {
 	/**
 	 * 接続ドライバー名
 	 */
-	private final String DRIVER_NAME = "org.postgresql.Driver";
+	private final String DRIVER_NAME ;
 
 	/**
 	 * 接続URL
 	 */
-	private final String URL = "jdbc:postgresql://1/ghp";
+	private final String URL ;
 
 	/**
 	 * 接続ユーザ
 	 */
-	private final String USER = "ghp";
+	private final String USER;
 
 	/**
 	 * 接続パスワード
 	 */
-	private final String PASSWORD = "ghp";
+	private final String PASSWORD ;
 
+	//public static void main(String[] args) {
+		//ConnectionManager cm = new ConnectionManager();
+		//cm.getConnection();
+		//System.out.println("OKです");
+	//}
+	/**
+	 * コンストラクタ
+	 */
+		public ConnectionManager(){
+			ResourceBundle rBundle = ResourceBundle.getBundle("Db");
+			DRIVER_NAME=rBundle.getString("DRIVER_NAME");
+			URL =rBundle.getString("URL");
+			USER=rBundle.getString("USER");
+			PASSWORD=rBundle.getString("PASSWORD");
+
+		}
 
 
 	/**
