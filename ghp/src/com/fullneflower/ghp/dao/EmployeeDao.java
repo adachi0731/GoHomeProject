@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.EmployeeVo;
 
 /** koko */
@@ -25,8 +26,9 @@ public class EmployeeDao {
 	/**
 	 * 入力された社員番号とパスワードがデータベースにあるか確認する。
 	 * @return 該当件数
+	 * @throws GhpException
 	 */
-	public int search(EmployeeVo emp) {
+	public int search(EmployeeVo emp) throws GhpException {
 
 		// ステートメントの定義
 		PreparedStatement preparedStatement = null;
@@ -50,7 +52,7 @@ public class EmployeeDao {
 			}
 			return resultCnt;
 		} catch (SQLException e) {
-			throw new RuntimeException("ghpテーブルのSELECTに失敗しました", e);
+			throw new GhpException("ghpテーブルのSELECTに失敗しました", e);
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -59,7 +61,7 @@ public class EmployeeDao {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				throw new RuntimeException("ステートメントの解放に失敗しました", e);
+				throw new GhpException("ステートメントの解放に失敗しました", e);
 			}
 		}
 	}
