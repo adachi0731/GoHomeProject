@@ -31,7 +31,7 @@
 					<td><input type="password" name="passwd"></td>
 				</tr>
 			</table>
-
+//aaaa
 			<br> <input type="submit" value="ログイン" onClick="javascript:double(this)"> <input
 				type="reset" value="クリア">
 				<input type="hidden" name="action" value="employee.login">
