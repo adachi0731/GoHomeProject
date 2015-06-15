@@ -8,9 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script language="JavaScript">
   <!--
-  function doubleClick(btn) {
-    btn.disabled=true;
-   }
+
    //-->
   </script>
 <title>Insert title here</title>
@@ -34,7 +32,7 @@
 				</tr>
 			</table>
 
-			<br> <input type="submit" value="ログイン" onclick="doubleClick(this)"> <input
+			<br> <input type="submit" value="ログイン" onClick="javascript:double(this)"> <input
 				type="reset" value="クリア">
 				<input type="hidden" name="action" value="employee.login">
 		</form>
