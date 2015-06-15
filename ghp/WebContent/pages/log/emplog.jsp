@@ -27,7 +27,7 @@
 					<td><input type="text" name="empno"></td>
 				</tr>
 				<tr>
-					<td>パスワードあああああ</td>
+					<td>パスワードnoa</td>
 					<td><input type="password" name="passwd"></td>
 				</tr>
 			</table>
