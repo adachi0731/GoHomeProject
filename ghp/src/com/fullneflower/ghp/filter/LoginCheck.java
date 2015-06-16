@@ -68,7 +68,7 @@ public class LoginCheck implements Filter {
 		if(session != null){
 			chain.doFilter(request, response);
 		}else if(session == null){
-			if("/pages/log/emplog.jsp".equals(path)){
+			if("/pages/log/emplog.jsp".equals(path)||"/ghp/image/fullneflower_logo.png".equals(path)){
 				chain.doFilter(request, response);
 			}else if("employee.login".equals(judge1) || "employee.logout".equals(judge1)){
 				chain.doFilter(request, response);

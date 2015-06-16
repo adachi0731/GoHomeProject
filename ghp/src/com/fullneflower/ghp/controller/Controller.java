@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fullneflower.ghp.bean.fullneflowerBean;
+import com.fullneflower.ghp.bean.FullneflowerBean;
 import com.fullneflower.ghp.exception.GhpException;
 
 /**
@@ -25,27 +25,27 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		try {
-			String param = request.getParameter("action");  //employee.logout
+			String param = request.getParameter("action");
 			ResourceBundle rb = ResourceBundle.getBundle("Resource");
-			String clazz = rb.getString(param); //com.fullneflower.ghp.bean.LogoutBean
-			Class cls = Class.forName(clazz); // clsって名前でLogoutBeanというクラスを作る
-			Object obj = cls.newInstance();//LogoutBeanをオブジェクト型のobという形でおぎゃー
-			fullneflowerBean bean = (fullneflowerBean)obj;//オブジェクト型からfullneflowerBean型（インターフェース型）にする
+			String clazz = rb.getString(param);
+			Class cls = Class.forName(clazz);
+			Object obj = cls.newInstance();
+			FullneflowerBean bean = (FullneflowerBean)obj;
 
-			String ret = bean.execute(request, response);//success
-			String path = rb.getString(param + "." + ret);//employee.login.success
-			System.out.println("遷移先のパス:" + path);//遷移先のパス:employee.login.success
+			String ret = bean.execute(request, response);
+			String path = rb.getString(param + "." + ret);
+			System.out.println("遷移先のパス:" + path);
 
-			RequestDispatcher rd = request.getRequestDispatcher(path);// /pages/log/menu.jsp
+			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);
 		} catch (GhpException e) {
 			//システムエラー
 			e.printStackTrace();
-			System.out.println("uaaaaaaaaaaaaaaaaaaaaa");
 			RequestDispatcher deispatcher = request.getRequestDispatcher("/pages/log/error.jsp");
 			deispatcher.forward(request, response);
 		}catch (Exception e) {
-			//System.out.println("あらら");
+			RequestDispatcher deispatcher = request.getRequestDispatcher("/pages/log/error.jsp");
+			deispatcher.forward(request, response);
 		}
 	}
 
