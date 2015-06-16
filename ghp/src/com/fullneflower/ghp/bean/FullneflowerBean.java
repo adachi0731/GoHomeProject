@@ -5,6 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fullneflower.ghp.exception.GhpException;
 
-public interface fullneflowerBean {
+public interface FullneflowerBean {
 	String execute(HttpServletRequest request, HttpServletResponse response)throws GhpException;
 }

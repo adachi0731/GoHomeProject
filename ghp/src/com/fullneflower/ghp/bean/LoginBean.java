@@ -16,7 +16,7 @@ import com.fullneflower.ghp.vo.EmployeeVo;
  *ログイン関連の処理をします
  */
 
-public class LoginBean implements  fullneflowerBean{
+public class LoginBean implements  FullneflowerBean{
 	//private static final long serialVersionUID = 1L;
 	/**
 	 * ・入力された値をチェックし、

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fullneflower.ghp.bean.fullneflowerBean;
+import com.fullneflower.ghp.bean.FullneflowerBean;
 import com.fullneflower.ghp.exception.GhpException;
 
 /**
@@ -30,7 +30,7 @@ public class Controller extends HttpServlet {
 			String clazz = rb.getString(param);
 			Class cls = Class.forName(clazz);
 			Object obj = cls.newInstance();
-			fullneflowerBean bean = (fullneflowerBean)obj;
+			FullneflowerBean bean = (FullneflowerBean)obj;
 
 			String ret = bean.execute(request, response);
 			String path = rb.getString(param + "." + ret);
@@ -44,6 +44,8 @@ public class Controller extends HttpServlet {
 			RequestDispatcher deispatcher = request.getRequestDispatcher("/pages/log/error.jsp");
 			deispatcher.forward(request, response);
 		}catch (Exception e) {
+			RequestDispatcher deispatcher = request.getRequestDispatcher("/pages/log/error.jsp");
+			deispatcher.forward(request, response);
 		}
 	}
 

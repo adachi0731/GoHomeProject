@@ -11,7 +11,7 @@ import com.fullneflower.ghp.exception.GhpException;
  * @param request,response
  * @throws GhpException
  */
-public class LogoutBean  implements  fullneflowerBean{
+public class LogoutBean  implements  FullneflowerBean{
 	/**
 	 * セッションが保持している場合はセッションを切断し、”failure”ログイン画面へ遷移
 	 * セッションが切断できなかった場合は”error”システムエラー画面へ遷移。
