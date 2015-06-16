@@ -6,8 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+history.forward();
+</script>
 <body>
-
 	<table>
 		<tr>
 		<td><jsp:include page="header.jsp" /></td>
