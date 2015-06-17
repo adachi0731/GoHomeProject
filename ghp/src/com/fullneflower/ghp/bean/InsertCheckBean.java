@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fullneflower.ghp.exception.GhpException;
 
-public class DeleteBean implements  FullneflowerBean{
+public class InsertCheckBean implements  FullneflowerBean{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
