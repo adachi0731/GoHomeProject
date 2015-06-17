@@ -1,156 +1,77 @@
 package com.fullneflower.ghp.vo;
 
+/**値を保持する*/
 public class ItemVo {
+	/**商品番号*/
 	private int itemNo;
+	/**商品名*/
 	private String itemName;
+	/**商品画像URL*/
+	private String itemURL;
+	/**単価*/
 	private int unitPrice;
+	/**寸法*/
 	private String size;
-	private String assortment;
-	private String category;
-	private String itemUrl;
-	private int stock;
-	private String categoryName;
-	private String description;
-	/**
-	 * itemNoを取得します。
-	 * @return itemNo
-	 */
+	/**商品種別コード*/
+	private String assortmentCode;
+	/**商品カテゴリーコード*/
+	private String categoryCode;
+
+	/**商品番号を取得*/
 	public int getItemNo() {
-	    return itemNo;
+		return itemNo;
 	}
-	/**
-	 * itemNoを設定します。
-	 * @param itemNo itemNo
-	 */
+	/**商品番号を設定*/
 	public void setItemNo(int itemNo) {
-	    this.itemNo = itemNo;
+		this.itemNo = itemNo;
 	}
-	/**
-	 * itemNameを取得します。
-	 * @return itemName
-	 */
+	/**商品名を取得*/
 	public String getItemName() {
-	    return itemName;
+		return itemName;
 	}
-	/**
-	 * itemNameを設定します。
-	 * @param itemName itemName
-	 */
+	/**商品名を設定*/
 	public void setItemName(String itemName) {
-	    this.itemName = itemName;
+		this.itemName = itemName;
 	}
-	/**
-	 * unitPriceを取得します。
-	 * @return unitPrice
-	 */
+	/**商品画像URLを取得*/
+	public String getItemURL() {
+		return itemURL;
+	}
+	/**商品画像URLを設定*/
+	public void setItemURL(String itemURL) {
+		this.itemURL = itemURL;
+	}
+	/**単価を取得*/
 	public int getUnitPrice() {
-	    return unitPrice;
+		return unitPrice;
 	}
-	/**
-	 * unitPriceを設定します。
-	 * @param unitPrice unitPrice
-	 */
+	/**単価を設定*/
 	public void setUnitPrice(int unitPrice) {
-	    this.unitPrice = unitPrice;
+		this.unitPrice = unitPrice;
 	}
-	/**
-	 * sizeを取得します。
-	 * @return size
-	 */
+	/**寸法を取得*/
 	public String getSize() {
-	    return size;
+		return size;
 	}
-	/**
-	 * sizeを設定します。
-	 * @param size size
-	 */
+	/**寸法を設定*/
 	public void setSize(String size) {
-	    this.size = size;
+		this.size = size;
 	}
-	/**
-	 * assortmentを取得します。
-	 * @return assortment
-	 */
-	public String getAssortment() {
-	    return assortment;
+	/**商品種別コードを取得*/
+	public String getAssortmentCode() {
+		return assortmentCode;
 	}
-	/**
-	 * assortmentを設定します。
-	 * @param assortment assortment
-	 */
-	public void setAssortment(String assortment) {
-	    this.assortment = assortment;
+	/**商品種別コードを設定*/
+	public void setAssortmentCode(String assortmentCode) {
+		this.assortmentCode = assortmentCode;
 	}
-	/**
-	 * categoryを取得します。
-	 * @return category
-	 */
-	public String getCategory() {
-	    return category;
+	/**商品カテゴリーコードを取得*/
+	public String getCategoryCode() {
+		return categoryCode;
 	}
-	/**
-	 * categoryを設定します。
-	 * @param category category
-	 */
-	public void setCategory(String category) {
-	    this.category = category;
+	/**商品カテゴリーコードを設定*/
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
-	/**
-	 * itemUrlを取得します。
-	 * @return itemUrl
-	 */
-	public String getItemUrl() {
-	    return itemUrl;
-	}
-	/**
-	 * itemUrlを設定します。
-	 * @param itemUrl itemUrl
-	 */
-	public void setItemUrl(String itemUrl) {
-	    this.itemUrl = itemUrl;
-	}
-	/**
-	 * stockを取得します。
-	 * @return stock
-	 */
-	public int getStock() {
-	    return stock;
-	}
-	/**
-	 * stockを設定します。
-	 * @param stock stock
-	 */
-	public void setStock(int stock) {
-	    this.stock = stock;
-	}
-	/**
-	 * categoryNameを取得します。
-	 * @return categoryName
-	 */
-	public String getCategoryName() {
-	    return categoryName;
-	}
-	/**
-	 * categoryNameを設定します。
-	 * @param categoryName categoryName
-	 */
-	public void setCategoryName(String categoryName) {
-	    this.categoryName = categoryName;
-	}
-	/**
-	 * descriptionを取得します。
-	 * @return description
-	 */
-	public String getDescription() {
-	    return description;
-	}
-	/**
-	 * descriptionを設定します。
-	 * @param description description
-	 */
-	public void setDescription(String description) {
-	    this.description = description;
-	}
-	
 
 }
