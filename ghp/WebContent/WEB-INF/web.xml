@@ -39,18 +39,23 @@
     <servlet-name>EmployeeDao</servlet-name>
     <url-pattern>/employeeDao</url-pattern>
   </servlet-mapping>
-
-
-
-
-   <filter>
+  <filter>
     <display-name>LoginCheck</display-name>
     <filter-name>LoginCheck</filter-name>
     <filter-class>com.fullneflower.ghp.filter.LoginCheck</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>LoginCheck</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/LoginCheck</url-pattern>
   </filter-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>ItemStockVo</display-name>
+    <servlet-name>ItemStockVo</servlet-name>
+    <servlet-class>com.fullneflower.ghp.vo.ItemStockVo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemStockVo</servlet-name>
+    <url-pattern>/itemStockVo</url-pattern>
+  </servlet-mapping>
 </web-app>

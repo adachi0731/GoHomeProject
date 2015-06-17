@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var url = new Array("item_maint.html", "item_maint_add.html");
+	var url = new Array("item_maint.html", "item_maint.html");
 	function exec(num) {
 		document.myForm.action = url[num];
 	}
@@ -16,45 +16,39 @@
 	<center>
 		<h2>商品情報メンテナンス</h2>
 
-		以下の内容で商品情報を登録します。<br> 登録内容を確認の上、「登録」ボタンを押してください。<br> <br>
+		下記の商品情報を削除します。<br> 内容を確認の上、「削除」ボタンを押してください。<br> <br>
 
 		<form name="myForm" >
 
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
-					<td>0001</td>
-				</tr>
-				<tr>
 					<th>商品名</th>
-					<td>カーネーション</td>
-				</tr>
-				<tr>
-					<th>商品画像</th>
-					<td><img src="../image/r07_1.jpg"></td>
-				</tr>
-				<tr>
 					<th>単価</th>
-					<td>\9,800-</td>
-				</tr>
-				<tr>
 					<th>寸法</th>
-					<td>90x80x60cm</td>
-				</tr>
-				<tr>
 					<th>種別</th>
-					<td>花束</td>
-				</tr>
-				<tr>
 					<th>カテゴリー</th>
+				</tr>
+
+				<tr>
+					<td>0001</td>
+					<td>カーネーション</td>
+					<td>\9,800-</td>
+					<td>50x70x90cm</td>
+					<td>花束</td>
 					<td>Red</td>
 				</tr>
 			</table>
 
-			<br> <input type="submit" name="submit" value="登録"
-				onClick="exec(0);"> <input type="submit" name="submit"
-				value="戻る" onClick="exec(1);">
-
+			<br> <input type="submit" name="add" value="削除"
+				onclick="exec(0);"> <input type="submit" name="delete"
+				value="戻る" onclick="exec(1);">
+				<!--
+				< input type="submit" name="delete" value="削除" >
+				< input type="hidden" name="action" value="delete">
+				< input type="submit" name="delete" value="戻る" >
+				< input type="hidden" name="action" value="back">
+				-->
 		</form>
 
 	</center>

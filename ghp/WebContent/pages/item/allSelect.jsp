@@ -65,7 +65,7 @@
 
 			<br> <input type="submit" name="add" value="商品追加"
 				onClick="exec(0);"> <input type="submit" name="delete"
-				value="削除" onClick="exec(1);">
+				value="削除" onClick="exec(1);" >
 
 		</form>
 

@@ -51,10 +51,14 @@
 				</tr>
 			</table>
 
-			<br> <input type="submit" name="submit" value="更新"
-				onclick="exec(0);"> <input type="submit" name="submit"
-				value="戻る" onclick="exec(1);">
-
+			<br> <input type="submit" name="submit" value="更新" onclick="exec(0);">
+				 <input type="submit" name="submit" value="戻る" onclick="exec(1);">
+				<!--
+				 < input type="submit" name="update" value="更新" >
+				 < input type="hidden" name="action" value="update">
+				 < input type="submit" name="back" value="戻る" >
+				 < input type="hidden" name="action" value="back">
+				 -->
 		</form>
 
 	</center>

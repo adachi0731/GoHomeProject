@@ -22,11 +22,11 @@
 
 			<table border="1">
 				<tr>
-					<th>商品番号</th>
+					<th>商品番号 ※必須</th>
 					<td><input type="text" value=""></td>
 				</tr>
 				<tr>
-					<th>商品名</th>
+					<th>商品名 ※必須</th>
 					<td><input type="text" value=""></td>
 				</tr>
 				<tr>
@@ -34,12 +34,12 @@
 					<td><input type="text" value="" size="40"></td>
 				</tr>
 				<tr>
-					<th>単価</th>
-					<td><input type="text" value=""></td>
+					<th>単価 ※必須</th>
+					<td><input type="text" value=""></td><td>4ケタ数字のみ　「,」「&yen」記入不用</td>
 				</tr>
 				<tr>
-					<th>寸法</th>
-					<td><input type="text" value=""></td>
+					<th>寸法 ※必須</th>
+					<td><input type="text" value="">入力形式例:00x00x00</td>
 				</tr>
 				<tr>
 					<th>種別</th>

@@ -10,5 +10,6 @@
 	<li><a href="tantosha_maint.html" target="bodyframe">担当者情報メンテナンス</a>
 	<li><a href="customer_maint.html" target="bodyframe">顧客情報メンテナンス</a>
 	<li><a href="item_maint.html" target="bodyframe">商品情報メンテナンス</a>
+	<!-- <li><a href="/ghp/page/item/allSelect.jsp" target="bodyframe">商品情報メンテナンス</a>-->
 	<li><a href="/ghp/controller?action=employee.logout">ログアウト</a>
 </ul>
