@@ -43,12 +43,14 @@
 			<br> <input type="submit" name="add" value="削除"
 				onclick="exec(0);"> <input type="submit" name="delete"
 				value="戻る" onclick="exec(1);">
+
 				<!--
 				< input type="submit" name="delete" value="削除" >
 				< input type="hidden" name="action" value="delete">
 				< input type="submit" name="delete" value="戻る" >
 				< input type="hidden" name="action" value="back">
 				-->
+
 		</form>
 
 	</center>

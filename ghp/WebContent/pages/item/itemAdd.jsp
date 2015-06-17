@@ -22,6 +22,7 @@
 
 			<table border="1">
 				<tr>
+<<<<<<< HEAD
 					<th>商品番号 ※必須</th>
 					<td><input type="text" value=""></td>
 				</tr>

@@ -50,7 +50,6 @@
 					<td>Red</td>
 				</tr>
 			</table>
-
 			<br> <input type="submit" name="submit" value="更新" onclick="exec(0);">
 				 <input type="submit" name="submit" value="戻る" onclick="exec(1);">
 				<!--

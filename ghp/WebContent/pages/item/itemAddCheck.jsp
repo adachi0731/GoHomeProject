@@ -60,7 +60,6 @@
 				 <input type="submit" name="back" value="戻る">
 				<input type="hidden" name="action" value="back">
 				-->
-		</form>
 	</center>
 </body>
 
