@@ -1,6 +1,14 @@
 package com.fullneflower.ghp.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fullneflower.ghp.exception.GhpException;
+import com.fullneflower.ghp.vo.ItemVo;
 
 public class ItemDao {
 	/** コネクション */
@@ -68,9 +76,48 @@ public class ItemDao {
 
 	}
 
-	private static String SELECT_POINT = "";
+	// SQLの定義
+	private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE FROM ITEM WHERE ITEM_NO=?";
 
-	public void selectPoint() {
 
+	//publicの後ろは～型の返り値を返す
+	public List<ItemVo> selectPoint(String iNo) throws GhpException {
+		//System.out.println(iNo);
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try{
+			// SQLの作成(準備)
+			preparedStatement = connection.prepareStatement(SELECT_POINT);
+			// SQLバインド変数への値設定
+			preparedStatement.setString(1,iNo);
+			// SQLの実行
+			resultSet = preparedStatement.executeQuery();
+			//sqlから取得した値をVoに詰める
+			List<ItemVo> itemList = new ArrayList<ItemVo>();
+			while (resultSet.next()) {
+				ItemVo itemVo = new ItemVo();
+				itemVo.setItemName(resultSet.getString("ITEM_NAME"));
+				itemVo.setItemURL(resultSet.getString("ITEM_URL"));
+				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
+				itemVo.setSize(resultSet.getString("SIZE"));
+				itemList.add(itemVo);
+			}
+			return itemList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new GhpException("ステートメントの解放に失敗しました", e);
+		}finally{
+			try{
+			if (preparedStatement != null) {
+				preparedStatement.close();
+				System.out.println("ステートメントの解放に成功しました");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new GhpException("ステートメントの解放に失敗しました", e);
+
+		}
+	}
 	}
 }
