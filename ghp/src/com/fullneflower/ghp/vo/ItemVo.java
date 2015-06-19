@@ -3,7 +3,7 @@ package com.fullneflower.ghp.vo;
 /**値を保持する*/
 public class ItemVo {
 	/**商品番号*/
-	private int itemNo;
+	private String itemNo;
 	/**商品名*/
 	private String itemName;
 	/**商品画像URL*/
@@ -16,13 +16,39 @@ public class ItemVo {
 	private String assortmentCode;
 	/**商品カテゴリーコード*/
 	private String categoryCode;
+	/**商品カテゴリークラス*/
+	private ItemCategoryVo categoryVo;
+	/** 商品在庫クラス*/
+	private ItemStockVo stockVo;
+	/** 商品種別クラス*/
+	private ItemAssortmentVo assortVo;
+
+	public ItemAssortmentVo getAssortVo() {
+		return assortVo;
+	}
+	public void setAssortVo(ItemAssortmentVo assortVo) {
+		this.assortVo = assortVo;
+	}
+	public ItemStockVo getStockVo() {
+		return stockVo;
+	}
+	public void setStockVo(ItemStockVo stockVo) {
+		this.stockVo = stockVo;
+	}
+	public ItemCategoryVo getItmCtVo() {
+		return categoryVo;
+	}
+	public void setItmCtVo(ItemCategoryVo categoryVo) {
+		this.categoryVo = categoryVo;
+	}
+
 
 	/**商品番号を取得*/
-	public int getItemNo() {
+	public String getItemNo() {
 		return itemNo;
 	}
 	/**商品番号を設定*/
-	public void setItemNo(int itemNo) {
+	public void setItemNo(String itemNo) {
 		this.itemNo = itemNo;
 	}
 	/**商品名を取得*/

@@ -63,7 +63,7 @@ public class ItemDao {
 	/**
 	 * クエリ文字列
 	 */
-	private static String SELECT_ALL = "";
+	private static String SELECT_ALL = "SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
 
 	/**
 	 *
@@ -72,9 +72,44 @@ public class ItemDao {
 	 * [備 考] なし
 	 * @return
 	 */
-	public void selectAll() {
-
+	public List<ItemVo> selectAll() {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = connection.prepareStatement(SELECT_ALL);
+			resultSet = preparedStatement.executeQuery();
+			List<ItemVo> itemList = new ArrayList<ItemVo>();
+			while (resultSet.next()) {
+				ItemVo itemVo = new ItemVo();
+				itemVo.setItemNo(resultSet.getString("ITEM_NO"));
+				itemVo.setItemName(resultSet.getString("ITEM_NAME"));
+				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
+				itemVo.setSize(resultSet.getString("SIZE"));
+				itemVo.setAssortmentCode(resultSet.getString("ASSORTMENT_CODE"));
+				itemVo.setCategoryCode(resultSet.getString("CATEGORY_CODE"));
+				itemList.add(itemVo);
+			}
+			return itemList;
+		 } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        } finally {
+	            try {
+	                if (resultSet != null) {
+	                    resultSet.close();
+	                }
+	            } catch (SQLException e) {
+	                throw new RuntimeException(e);
+	            }
+	            try {
+	                if (preparedStatement != null) {
+	                    preparedStatement.close();
+	                }
+	            } catch (SQLException e) {
+	                throw new RuntimeException(e);
+	            }
+	        }
 	}
+
 
 	// SQLの定義
 	private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE FROM ITEM WHERE ITEM_NO=?";
@@ -101,6 +136,9 @@ public class ItemDao {
 				itemVo.setItemURL(resultSet.getString("ITEM_URL"));
 				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
 				itemVo.setSize(resultSet.getString("SIZE"));
+				itemVo.setSize(resultSet.getString("ASSORTMENT"));
+				itemVo.setSize(resultSet.getString("CATEGORY"));
+
 				itemList.add(itemVo);
 			}
 			return itemList;

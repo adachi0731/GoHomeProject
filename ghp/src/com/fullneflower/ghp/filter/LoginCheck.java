@@ -9,9 +9,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class LoginCheck
@@ -56,7 +53,8 @@ public class LoginCheck implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("フィルター-----------------");
+		chain.doFilter(request, response);
+		/*System.out.println("フィルター-----------------");
 		HttpSession session =((HttpServletRequest)request).getSession(false);
 		String judge1 = request.getParameter("action");
 		System.out.println("actionの中身"+judge1);
@@ -76,7 +74,7 @@ public class LoginCheck implements Filter {
 				((HttpServletResponse)response).sendRedirect("/ghp/pages/log/emplog.jsp");
 			}
 		}
-		System.out.println("--------------------------------");
+		System.out.println("--------------------------------");*/
 	}
 
 

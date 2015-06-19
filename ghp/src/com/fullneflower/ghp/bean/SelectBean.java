@@ -43,10 +43,8 @@ public class SelectBean implements  FullneflowerBean{
 			//System.out.println(tmpVo);
 			//itemVoという名で同期した値を飛ばす
 			request.setAttribute("itemVo", tmpVo);
-			//request.setAttribute(itemSelect,"itemName");
-			//String itName = itemVo.getItemName();
-			//System.out.println(itName);
-			//requesst.setAttribute("itemName", itName);
+			request.setAttribute("itemSelect", itemSelect);
+
 
 			return "success";
 		}catch(GhpException e){
