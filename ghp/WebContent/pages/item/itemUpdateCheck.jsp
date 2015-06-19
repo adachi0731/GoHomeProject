@@ -5,12 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-	var url = new Array("item_maint.html", "item_maint_update.html");
-	function exec(num) {
-		document.myForm.action = url[num];
-	}
-</script>
 </head>
 <body>
 	<center>
@@ -18,42 +12,45 @@
 
 		以下の内容で商品情報を更新します。<br> 更新内容を確認の上、「更新」ボタンを押してください。<br> <br>
 
-		<form name="myForm">
+		<form action="/ghp/controller" method="post">
+
 
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
-					<td>0001</td>
+					<td>${No}</td>
 				</tr>
 				<tr>
 					<th>商品名</th>
-					<td>カーネーション</td>
+					<td>${Name}</td>
 				</tr>
 				<tr>
 					<th>商品画像</th>
-					<td><img src="../image/r07_1.jpg"></td>
+					<td>${Url}</td>
 				</tr>
 				<tr>
 					<th>単価</th>
-					<td>\9,800-</td>
+					<td>${Price}</td>
 				</tr>
 				<tr>
 					<th>寸法</th>
-					<td>90x60x50cm</td>
+					<td>${Size}</td>
 				</tr>
 				<tr>
 					<th>種別</th>
-					<td>花束</td>
+					<td>${Assortment}</td>
 				</tr>
 				<tr>
 					<th>カテゴリー</th>
-					<td>Red</td>
+					<td>${Category}</td>
 				</tr>
 			</table>
 
-			<br> <input type="submit" name="submit" value="更新"
-				onclick="exec(0);"> <input type="submit" name="submit"
-				value="戻る" onclick="exec(1);">
+			<br> <input type="submit" value="登録">
+<input type="hidden" name="action" value="item.Update">
+		</form>
+		<form action="/ghp/pages/item/itemUpdate.jsp">
+			<input type="submit"  value="戻る">
 
 		</form>
 

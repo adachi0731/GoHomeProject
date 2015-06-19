@@ -44,8 +44,9 @@
 			</c:forEach>
 
 		</table>
-
-		<br> <input type="submit" name="add"  value="商品追加"">
+		<form action="/ghp/pages/item/itemAdd.jsp">
+		<br> <input type="submit" value="商品追加">
+		 </form>
 		 <input type="submit" name="delete" value="削除" >
 
 

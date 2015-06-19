@@ -40,10 +40,32 @@ public class ItemDao {
 	 * @param
 	 * @return 登録件数
 	 */
-	public int insert() {
-		int result = 0;
-		return result;
+	public int insert(ItemVo itemVo) {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement(INSERT);
+			preparedStatement.setString(1, itemVo.getItemNo());
+			preparedStatement.setString(2, itemVo.getItemName());
+			preparedStatement.setString(3, itemVo.getItemURL());
+			preparedStatement.setInt(4, itemVo.getUnitPrice());
+			preparedStatement.setString(5, itemVo.getSize());
+			preparedStatement.setString(6, itemVo.getAssortmentCode());
+			preparedStatement.setString(7, itemVo.getCategoryCode());
+			int result = preparedStatement.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 	}
+
 
 	private static String UPDATE = "";
 
@@ -64,6 +86,14 @@ public class ItemDao {
 	 * クエリ文字列
 	 */
 	private static String SELECT_ALL = "SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
+	/*
+	 * private static String SELECT_ALL = "SELECT i.item_no,i.item_name," +
+			"							i.unit_price,i.size,a.assortment_name,c.category_name " +
+			"				FROM item i INNER JOIN item_assortment a ON " +
+			"				i.assortment_code=a.assortment_code INNER JOIN item_category c ON " +
+			"				i.category_code=c.category_code";
+
+	 */
 
 	/**
 	 *
@@ -130,14 +160,15 @@ public class ItemDao {
 			resultSet = preparedStatement.executeQuery();
 			//sqlから取得した値をVoに詰める
 			List<ItemVo> itemList = new ArrayList<ItemVo>();
+			ItemVo itemVo = new ItemVo();
 			while (resultSet.next()) {
-				ItemVo itemVo = new ItemVo();
+
 				itemVo.setItemName(resultSet.getString("ITEM_NAME"));
 				itemVo.setItemURL(resultSet.getString("ITEM_URL"));
 				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
 				itemVo.setSize(resultSet.getString("SIZE"));
-				itemVo.setSize(resultSet.getString("ASSORTMENT"));
-				itemVo.setSize(resultSet.getString("CATEGORY"));
+				//itemVo.setAssortmentCode(resultSet.getString("ASSORTMENT"));
+				//itemVo.setCategoryCode(resultSet.getString("CATEGORY"));
 
 				itemList.add(itemVo);
 			}
