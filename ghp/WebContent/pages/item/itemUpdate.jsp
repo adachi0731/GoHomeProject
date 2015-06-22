@@ -34,19 +34,19 @@
 				</tr>
 				<tr>
 					<th>商品名</th>
-					<td><input type="text" name="itemName" value="${itemVo.itemName }"></td>
+					<td><input type="text" name="itemName" value="${selectVo.itemName }"></td>
 				</tr>
 				<tr>
 					<th>商品画像(URL)</th>
-					<td><input type="text"name="URL" size="40" value="${itemVo.itemURL }"></td>
+					<td><input type="text"name="URL" size="40" value="${selectVo.itemURL }"></td>
 				</tr>
 				<tr>
 					<th>単価</th>
-					<td><input type="text" name="unitPrice" value="${itemVo.unitPrice }" ></td>
+					<td><input type="text" name="unitPrice" value="${selectVo.unitPrice }" ></td>
 				</tr>
 				<tr>
 					<th>寸法</th>
-					<td><input type="text" name="size" value="${itemVo.size }"></td>
+					<td><input type="text" name="size" value="${selectVo.size }"></td>
 				</tr>
 				<tr>
 					<th>種別</th>
