@@ -88,7 +88,9 @@ public class LoginBean implements  FullneflowerBean{
 		}catch(GhpException e){
 			throw new GhpException("LoginBeanでエラーが起きました", e);
 		}finally{
-			cm.closeConnection();	//コネクションの切断
+			if (cm != null) {	//こんな感じばい
+				cm.closeConnection();	//コネクションの切断
+			}	//こんな感じばい
 		}
 		return "failure";
 	}

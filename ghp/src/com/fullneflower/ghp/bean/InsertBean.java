@@ -1,6 +1,8 @@
 package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,8 @@ public class InsertBean implements  FullneflowerBean{
 	             ItemDao itemDao = new ItemDao(connection);
 	             ItemVo itemVo = new ItemVo();
 
+
+
 	            itemVo.setItemNo(request.getParameter("itemNo"));
 	     		itemVo.setItemName(request.getParameter("itemName"));
 	     		itemVo.setItemURL(request.getParameter("URL"));
@@ -29,15 +33,25 @@ public class InsertBean implements  FullneflowerBean{
 	     		itemVo.setSize(request.getParameter("size"));
 	     		itemVo.setAssortmentCode(request.getParameter("assortment"));
 	     		itemVo.setCategoryCode(request.getParameter("category"));
+	     		List<ItemVo> insertCheck= itemDao.insertCheck(itemVo);
 
-	            int result = itemDao.insert(itemVo);
-	            connectionManager.commit();
-	            System.out.println(result);
-	            if(result == 1){
-	            	return "success";
-	            }else{
-	            	return "failure";
-	            }
+				if(insertCheck==null){
+					int result = itemDao.insert(itemVo);
+		            connectionManager.commit();
+		            System.out.println(result);
+		            if(result == 1){
+		            	return "success";
+		            }else{
+		            	return "failure";
+		            }
+				}else{
+					String param = "ItemRegistered";
+					ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+					String erro = msgresult.getString(param); //errorメッセージ
+					request.setAttribute("errorItemRegistered", erro);
+					return "failure";
+				}
+
 
 	        } catch (RuntimeException e) {
 	            connectionManager.rollback();

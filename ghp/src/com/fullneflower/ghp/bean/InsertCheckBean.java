@@ -1,5 +1,7 @@
 package com.fullneflower.ghp.bean;
 
+import java.sql.Connection;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +9,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fullneflower.ghp.dao.ConnectionManager;
+import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemVo;
 
@@ -14,6 +18,9 @@ public class InsertCheckBean implements  FullneflowerBean{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
+		 ConnectionManager connectionManager = new ConnectionManager();
+
+		 Connection connection = connectionManager.getConnection();
 		// TODO 自動生成されたメソッド・スタブ
 		int checkFlg=1;
 		String result = "failure";
@@ -43,13 +50,13 @@ public class InsertCheckBean implements  FullneflowerBean{
 		Pattern urlPattern = Pattern.compile("(.*)[^\\.jpg]+$");
 		Matcher ItemUrl = urlPattern.matcher(URL);
 		//寸法のチェック
-		Pattern sizePattern = Pattern.compile("[1-9]+x+[1-9]+x+[1-9]+$");
+		Pattern sizePattern = Pattern.compile("[0-99]+x+[0-99]+x+[0-99]+$");
 		Matcher ItemSize = sizePattern.matcher(size);
 
 		if(!"".equals(itemNo) && ItemNo.matches()){
 
 		}else{
-			String param = "error.ItemNo";
+			String param = "ItemNo";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemNo", erro);
@@ -58,7 +65,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		}
 
 		if("".equals(itemName)){
-			String param = "error.ItemName";
+			String param = "ItemName";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemName", erro);
@@ -67,7 +74,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		}
 
 		if("".equals(size)){
-			String param = "error.ItemSize";
+			String param = "ItemSize";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemSize", erro);
@@ -78,7 +85,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		if(ItemNameCorrect.matches()){
 
 		}else{
-			String param = "error.ItemNameCorrect";
+			String param = "ItemNameCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemNameCorrect", erro);
@@ -87,7 +94,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		}
 
 		if(ItemUrl.matches()){
-			String param = "error.ItemUrl";
+			String param = "ItemUrl";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemUrl", erro);
@@ -100,7 +107,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		if(ItemUnitPrice.matches()){
 
 		}else{
-			String param = "error.ItemUnitPrice";
+			String param = "ItemUnitPrice";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemUnitPrice", erro);
@@ -111,7 +118,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		if(ItemSize.matches()){
 
 		}else{
-			String param = "error.ItemSizeCorrect";
+			String param = "ItemSizeCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemSizeCorrect", erro);
@@ -121,6 +128,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 
 		if(checkFlg==1){
 			ItemVo itemVo = new ItemVo();
+			ItemDao itemDao = new ItemDao(connection);
 			itemVo.setItemNo(itemNo);
 			itemVo.setItemName(itemName);
 			itemVo.setItemURL(URL);
@@ -129,6 +137,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 			itemVo.setSize(size);
 			itemVo.setAssortmentCode(assortment);
 			itemVo.setCategoryCode(category);
+			List<ItemVo>  selectPulldown = itemDao.selectAll();
 			System.out.println(itemVo.getItemNo());
 			System.out.println(itemVo.getItemName());
 			System.out.println(itemVo.getItemURL());
@@ -137,13 +146,8 @@ public class InsertCheckBean implements  FullneflowerBean{
 			System.out.println(itemVo.getAssortmentCode());
 			System.out.println(itemVo.getCategoryCode());
 
-			request.setAttribute("No", itemNo);
-			request.setAttribute("Name", itemName);
-			request.setAttribute("Url", URL);
-			request.setAttribute("Price", unitPrice);
-			request.setAttribute("Size", size);
-			request.setAttribute("Assortment", assortment);
-			request.setAttribute("Category", category);
+			request.setAttribute("selectPulldown",selectPulldown);
+
 			result = "success";
 		}
 		System.out.println(result);

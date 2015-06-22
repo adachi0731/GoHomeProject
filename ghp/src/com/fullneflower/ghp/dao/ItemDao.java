@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fullneflower.ghp.exception.GhpException;
+import com.fullneflower.ghp.vo.ItemAssortmentVo;
+import com.fullneflower.ghp.vo.ItemCategoryVo;
 import com.fullneflower.ghp.vo.ItemVo;
 
 public class ItemDao {
@@ -24,7 +26,6 @@ public class ItemDao {
 		super();
 		this.connection = connection;
 	}
-
 
 
 	/**
@@ -68,10 +69,10 @@ public class ItemDao {
 
 
 	//"UPDATE"という名前でSQL文を作成
-		private static String UPDATE ="UPDATE ITEM SET ITEM_NAME=?, " +
-				"ITEM_URL=?, UNIT_PRICE=?, SIZE=?, " +
-				"ASSORTMENT_CODE=?, CATEGORY_CODE=? " +
-				"WHERE ITEM_NO=?";
+	private static String UPDATE ="UPDATE ITEM SET ITEM_NAME=?, " +
+			"ITEM_URL=?, UNIT_PRICE=?, SIZE=?, " +
+			"ASSORTMENT_CODE=?, CATEGORY_CODE=? " +
+			"WHERE ITEM_NO=?";
 	/* [備考]なし
 	 * @param itemV
 	 * @return 更新件数
@@ -80,37 +81,37 @@ public class ItemDao {
 	public int update(ItemVo itemV) throws GhpException{
 
 		// ステートメントの定義
-				PreparedStatement preparedStatement = null;
-				try {
-					// SQLの作成(準備)
-					preparedStatement = connection.prepareStatement(UPDATE);
+		PreparedStatement preparedStatement = null;
+		try {
+			// SQLの作成(準備)
+			preparedStatement = connection.prepareStatement(UPDATE);
 
-					// SQLバインド変数への値設定
-					preparedStatement.setString(1, itemV.getItemName());
-					preparedStatement.setString(2, itemV.getItemURL());
-					preparedStatement.setInt(3, itemV.getUnitPrice());
-					preparedStatement.setString(4, itemV.getSize());
-					preparedStatement.setString(5, itemV.getAssortmentCode());
-					preparedStatement.setString(6, itemV.getCategoryCode());
-					preparedStatement.setString(7, itemV.getItemNo());
+			// SQLバインド変数への値設定
+			preparedStatement.setString(1, itemV.getItemName());
+			preparedStatement.setString(2, itemV.getItemURL());
+			preparedStatement.setInt(3, itemV.getUnitPrice());
+			preparedStatement.setString(4, itemV.getSize());
+			preparedStatement.setString(5, itemV.getAssortmentCode());
+			preparedStatement.setString(6, itemV.getCategoryCode());
+			preparedStatement.setString(7, itemV.getItemNo());
 
-					// SQLの実行
-					int result = preparedStatement.executeUpdate();
-					return result;
+			// SQLの実行
+			int result = preparedStatement.executeUpdate();
+			return result;
 
-				} catch (SQLException e) {
-					throw new GhpException("ghpテーブルのUPDATEに失敗しました", e);
-				} finally {
-					try {
-						if (preparedStatement != null) {
-							preparedStatement.close();
-							System.out.println("ステートメントの解放に成功しました");
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-						throw new GhpException("ステートメントの解放に失敗しました", e);
-					}
+		} catch (SQLException e) {
+			throw new GhpException("ghpテーブルのUPDATEに失敗しました", e);
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+					System.out.println("ステートメントの解放に成功しました");
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new GhpException("ステートメントの解放に失敗しました", e);
+			}
+		}
 	}
 
 
@@ -158,29 +159,73 @@ public class ItemDao {
 				itemList.add(itemVo);
 			}
 			return itemList;
-		 } catch (SQLException e) {
-	            throw new RuntimeException(e);
-	        } finally {
-	            try {
-	                if (resultSet != null) {
-	                    resultSet.close();
-	                }
-	            } catch (SQLException e) {
-	                throw new RuntimeException(e);
-	            }
-	            try {
-	                if (preparedStatement != null) {
-	                    preparedStatement.close();
-	                }
-	            } catch (SQLException e) {
-	                throw new RuntimeException(e);
-	            }
-	        }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 
 	// SQLの定義
-	private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE FROM ITEM WHERE ITEM_NO=?";
+	private static String INSERTCHECK = "SELECT * FROM ITEM WHERE ITEM_NO = ? OR ITEM_NAME = ?";
+
+
+	//publicの後ろは～型の返り値を返す
+	public List<ItemVo> insertCheck(ItemVo itemVo) throws GhpException {
+		//System.out.println(iNo);
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try{
+			// SQLの作成(準備)
+			preparedStatement = connection.prepareStatement(INSERTCHECK);
+			// SQLバインド変数への値設定
+			preparedStatement.setString(1,itemVo.getItemNo());
+			preparedStatement.setString(2,itemVo.getItemName());
+			// SQLの実行
+			resultSet = preparedStatement.executeQuery();
+			//sqlから取得した値をVoに詰める
+			List<ItemVo> deleteCheck = new ArrayList<ItemVo>();
+			while (resultSet.next()) {
+
+				itemVo.setItemName(resultSet.getString("ACTIVE_FLG"));
+				deleteCheck.add(itemVo);
+			}
+			return deleteCheck;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new GhpException("ステートメントの解放に失敗しました", e);
+		}finally{
+			try{
+				if (preparedStatement != null) {
+					preparedStatement.close();
+					System.out.println("ステートメントの解放に成功しました");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new GhpException("ステートメントの解放に失敗しました", e);
+
+			}
+		}
+	}
+
+
+	// SQLの定義
+	private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,category_code,assortment_code FROM ITEM WHERE ITEM_NO=?";
 
 
 	//publicの後ろは～型の返り値を返す
@@ -216,15 +261,111 @@ public class ItemDao {
 			throw new GhpException("ステートメントの解放に失敗しました", e);
 		}finally{
 			try{
-			if (preparedStatement != null) {
-				preparedStatement.close();
-				System.out.println("ステートメントの解放に成功しました");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new GhpException("ステートメントの解放に失敗しました", e);
+				if (preparedStatement != null) {
+					preparedStatement.close();
+					System.out.println("ステートメントの解放に成功しました");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new GhpException("ステートメントの解放に失敗しました", e);
 
+			}
 		}
 	}
+	private static String ASSORTMENT = "select assortment_code,assortment_name,explain from item_assortment ";
+	//"SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
+
+
+
+
+	/**
+	 *
+	 * [機 能] 全件参照するメソッド<br>
+	 * [説 明] 部署テーブルの全件を参照する。<br>
+	 * [備 考] なし
+	 * @return
+	 */
+	public List<ItemAssortmentVo> assortment() {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = connection.prepareStatement(ASSORTMENT);
+			resultSet = preparedStatement.executeQuery();
+			List<ItemAssortmentVo> assortmentList = new ArrayList<ItemAssortmentVo>();
+			while (resultSet.next()) {
+				ItemAssortmentVo assortmentVo = new ItemAssortmentVo();
+				assortmentVo.setAssortmentCode(resultSet.getString("ASSORTMENT_CODE"));
+				assortmentVo.setAssortmentName(resultSet.getString("ASSORTMENT_NAME"));
+				assortmentVo.setAssortmentExplain(resultSet.getString("EXPLAIN"));
+				assortmentList.add(assortmentVo);
+
+			}
+			return assortmentList;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+	private static String CATEGORY = "select category_code,category_name,explain from item_category ";
+	//"SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
+
+
+
+
+	/**
+	 *
+	 * [機 能] 全件参照するメソッド<br>
+	 * [説 明] 部署テーブルの全件を参照する。<br>
+	 * [備 考] なし
+	 * @return
+	 */
+	public List<ItemCategoryVo> category() {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = connection.prepareStatement(CATEGORY);
+			resultSet = preparedStatement.executeQuery();
+			List<ItemCategoryVo> categoryList = new ArrayList<ItemCategoryVo>();
+			while (resultSet.next()) {
+				ItemCategoryVo categoryVo = new ItemCategoryVo();
+				categoryVo.setCategoryCode(resultSet.getString("CATEGORY_CODE"));
+				categoryVo.setCategoryName(resultSet.getString("CATEGORY_NAME"));
+				categoryVo.setCategoryExplain(resultSet.getString("EXPLAIN"));
+				categoryList.add(categoryVo);
+
+			}
+			return categoryList;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }

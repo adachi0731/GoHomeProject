@@ -23,6 +23,7 @@
 		${errorItemUnitPrice}<br>
 		${errorItemSize}
 		${errorItemSizeCorrect}<br>
+		${ItemDeleted}
 
 
 		<form action="/ghp/controller" method="post">

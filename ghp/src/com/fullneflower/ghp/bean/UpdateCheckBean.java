@@ -47,7 +47,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		Matcher ItemSize = sizePattern.matcher(size);
 
 		if("".equals(itemName)){
-			String param = "error.ItemName";
+			String param = "ItemName";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemName", erro);
@@ -56,7 +56,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		}
 
 		if("".equals(size)){
-			String param = "error.ItemSize";
+			String param = "ItemSize";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemSize", erro);
@@ -67,7 +67,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		if(ItemNameCorrect.matches()){
 
 		}else{
-			String param = "error.ItemNameCorrect";
+			String param = "ItemNameCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemNameCorrect", erro);
@@ -76,7 +76,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		}
 
 		if(ItemUrl.matches()){
-			String param = "error.ItemUrl";
+			String param = "ItemUrl";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemUrl", erro);
@@ -89,7 +89,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		if(ItemUnitPrice.matches()){
 
 		}else{
-			String param = "error.ItemUnitPrice";
+			String param = "ItemUnitPrice";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemUnitPrice", erro);
@@ -100,7 +100,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		if(ItemSize.matches()){
 
 		}else{
-			String param = "error.ItemSizeCorrect";
+			String param = "ItemSizeCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			String erro = msgresult.getString(param); //errorメッセージ
 			request.setAttribute("errorItemSizeCorrect", erro);

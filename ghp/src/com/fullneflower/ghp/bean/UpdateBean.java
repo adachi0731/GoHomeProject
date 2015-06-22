@@ -84,10 +84,10 @@ public class UpdateBean implements  FullneflowerBean{
             	request.setAttribute("itemList", itemList);
 				re = "success";
 			}else{
-				String param = "UpdateError";
+				String param = "ItemDeleted";
 				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 				String erro = msgresult.getString(param); //errorメッセージ
-				request.setAttribute("UpdateError", erro);
+				request.setAttribute("ItemDeleted", erro);
 				re = "failure";
 			}
 
