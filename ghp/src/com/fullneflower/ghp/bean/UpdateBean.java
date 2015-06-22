@@ -1,6 +1,7 @@
 package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +80,8 @@ public class UpdateBean implements  FullneflowerBean{
 
 			if(result==1){
 				cm.commit();
+				List<ItemVo> itemList = itemD.selectAll();
+            	request.setAttribute("itemList", itemList);
 				re = "success";
 			}else{
 				String param = "UpdateError";

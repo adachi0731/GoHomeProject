@@ -30,7 +30,7 @@ public class ItemDao {
 	/**
 	 * クエリ文字列
 	 */
-	private static String INSERT = "";
+	private static String INSERT = "insert into item(item_no,item_name,item_URL,unit_price,size,assortment_code,category_code) values(?,?,?,?,?,?,?)";
 
 	/**
 	 *
@@ -124,15 +124,14 @@ public class ItemDao {
 	/**
 	 * クエリ文字列
 	 */
-	private static String SELECT_ALL = "SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
-	/*
-	 * private static String SELECT_ALL = "SELECT i.item_no,i.item_name," +
+	//private static String SELECT_ALL = "SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
+	private static String SELECT_ALL = "SELECT i.item_no,i.item_name," +
 			"							i.unit_price,i.size,a.assortment_name,c.category_name " +
 			"				FROM item i INNER JOIN item_assortment a ON " +
 			"				i.assortment_code=a.assortment_code INNER JOIN item_category c ON " +
 			"				i.category_code=c.category_code";
 
-	 */
+
 
 	/**
 	 *
@@ -154,8 +153,8 @@ public class ItemDao {
 				itemVo.setItemName(resultSet.getString("ITEM_NAME"));
 				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
 				itemVo.setSize(resultSet.getString("SIZE"));
-				itemVo.setAssortmentCode(resultSet.getString("ASSORTMENT_CODE"));
-				itemVo.setCategoryCode(resultSet.getString("CATEGORY_CODE"));
+				itemVo.setAssortmentCode(resultSet.getString("ASSORTMENT_NAME"));
+				itemVo.setCategoryCode(resultSet.getString("CATEGORY_NAME"));
 				itemList.add(itemVo);
 			}
 			return itemList;

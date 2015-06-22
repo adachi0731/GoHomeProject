@@ -1,5 +1,7 @@
 package com.fullneflower.ghp.bean;
 
+import java.sql.Connection;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +9,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fullneflower.ghp.dao.ConnectionManager;
+import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemVo;
 
@@ -15,6 +19,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		// TODO 自動生成されたメソッド・スタブ
+		ConnectionManager connectionManager = new ConnectionManager();
 		int checkFlg=1;
 		String result = "failure";
 		String itemNo = request.getParameter("itemNo");
@@ -105,6 +110,8 @@ public class UpdateCheckBean implements  FullneflowerBean{
 
 		if(checkFlg==1){
 			ItemVo itemVo = new ItemVo();
+			Connection connection = connectionManager.getConnection();
+			ItemDao itemDao = new ItemDao(connection);
 			itemVo.setItemNo(itemNo);
 			itemVo.setItemName(itemName);
 			itemVo.setItemURL(URL);
@@ -121,10 +128,11 @@ public class UpdateCheckBean implements  FullneflowerBean{
 			request.setAttribute("Size", size);
 			request.setAttribute("Assortment", assortment);
 			request.setAttribute("Category", category);
+			List<ItemVo> itemList= itemDao.selectAll();
+			request.setAttribute("itemList", itemList);
 			result = "success";
 		}
 		System.out.println(result);
 		return result;
 	}
-
 }
