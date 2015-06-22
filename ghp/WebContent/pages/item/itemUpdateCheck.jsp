@@ -10,39 +10,41 @@
 	<center>
 		<h2>商品情報メンテナンス</h2>
 
-		以下の内容で商品情報を更新します。<br> 更新内容を確認の上、「更新」ボタンを押してください。<br> <br>
+		以下の内容で商品情報を更新します。<br> 更新内容を確認の上、「更新」ボタンを押してください。<br>
+		<br>${error.ItemDeleted}
+		<br>
+
 
 		<form action="/ghp/controller" method="post">
-
 
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
-					<td>${No}</td>
+					<td><input type="hidden" name="itemNo" value="${No}">${No}</td>
 				</tr>
 				<tr>
 					<th>商品名</th>
-					<td>${Name}</td>
+					<td><input type="hidden" name="itemName" value="${Name}">${Name}</td>
 				</tr>
 				<tr>
 					<th>商品画像</th>
-					<td>${Url}</td>
+					<td><input type="hidden" name="URL" value="${Url}">${Url}</td>
 				</tr>
 				<tr>
 					<th>単価</th>
-					<td>${Price}</td>
+					<td><input type="hidden" name="unitPrice" value="${Price}">${Price}</td>
 				</tr>
 				<tr>
 					<th>寸法</th>
-					<td>${Size}</td>
+					<td><input type="hidden" name="size" value="${Size}">${Size}</td>
 				</tr>
 				<tr>
 					<th>種別</th>
-					<td>${Assortment}</td>
+					<td><input type="hidden" name="assortment" value="${Assortment}">${Assortment}</td>
 				</tr>
 				<tr>
 					<th>カテゴリー</th>
-					<td>${Category}</td>
+					<td><input type="hidden" name="category" value="${Category}">${Category}</td>
 				</tr>
 			</table>
 

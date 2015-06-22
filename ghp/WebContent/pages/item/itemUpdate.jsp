@@ -30,7 +30,7 @@
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
-					<td>${itemVo.itemNo}</td>
+					<td><input type="hidden" name="itemNo" value="${itemVo.itemNo}"> ${itemVo.itemNo}</td>
 				</tr>
 				<tr>
 					<th>商品名</th>

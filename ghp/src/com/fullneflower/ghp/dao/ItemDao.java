@@ -67,11 +67,50 @@ public class ItemDao {
 	}
 
 
-	private static String UPDATE = "";
+	//"UPDATE"という名前でSQL文を作成
+		private static String UPDATE ="UPDATE ITEM SET ITEM_NAME=?, " +
+				"ITEM_URL=?, UNIT_PRICE=?, SIZE=?, " +
+				"ASSORTMENT_CODE=?, CATEGORY_CODE=? " +
+				"WHERE ITEM_NO=?";
+	/* [備考]なし
+	 * @param itemV
+	 * @return 更新件数
+	 * @throws GhpException
+	 */
+	public int update(ItemVo itemV) throws GhpException{
 
-	public int update() {
-		int result = 0;
-		return result;
+		// ステートメントの定義
+				PreparedStatement preparedStatement = null;
+				try {
+					// SQLの作成(準備)
+					preparedStatement = connection.prepareStatement(UPDATE);
+
+					// SQLバインド変数への値設定
+					preparedStatement.setString(1, itemV.getItemName());
+					preparedStatement.setString(2, itemV.getItemURL());
+					preparedStatement.setInt(3, itemV.getUnitPrice());
+					preparedStatement.setString(4, itemV.getSize());
+					preparedStatement.setString(5, itemV.getAssortmentCode());
+					preparedStatement.setString(6, itemV.getCategoryCode());
+					preparedStatement.setString(7, itemV.getItemNo());
+
+					// SQLの実行
+					int result = preparedStatement.executeUpdate();
+					return result;
+
+				} catch (SQLException e) {
+					throw new GhpException("ghpテーブルのUPDATEに失敗しました", e);
+				} finally {
+					try {
+						if (preparedStatement != null) {
+							preparedStatement.close();
+							System.out.println("ステートメントの解放に成功しました");
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+						throw new GhpException("ステートメントの解放に失敗しました", e);
+					}
+				}
 	}
 
 
