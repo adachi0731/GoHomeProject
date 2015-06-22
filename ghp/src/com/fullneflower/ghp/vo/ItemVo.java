@@ -2,6 +2,12 @@ package com.fullneflower.ghp.vo;
 
 /**値を保持する*/
 public class ItemVo {
+	@Override
+	public String toString() {
+		return "ItemVo [itemNo=" + itemNo + ", itemName=" + itemName + ", itemURL=" + itemURL + ", unitPrice="
+				+ unitPrice + ", size=" + size + ", assortmentCode=" + assortmentCode + ", categoryCode="
+				+ categoryCode + ", stockVo=" + stockVo + ", assortVo=" + assortmentVo + ", cateVo=" + categoryVo + "]";
+	}
 	/**商品番号*/
 	private String itemNo;
 	/**商品名*/
@@ -22,19 +28,14 @@ public class ItemVo {
 	private ItemStockVo stockVo;
 	/** 商品種別クラス*/
 	private ItemAssortmentVo assortmentVo;//がいとうNoをかえす
-
+	/**VoクラスItemAssortmentVo*/
+	private ItemAssortmentVo assortVo;
+	/**VoクラスItemCategoryVo*/
+	private ItemCategoryVo cateVo;
 	public ItemAssortmentVo getAssortmentVo() {
 		return assortmentVo;
 	}
-	public void setAssortVo(ItemAssortmentVo assortmentVo) {
-		this.assortmentVo = assortmentVo;
-	}
-	public ItemStockVo getStockVo() {
-		return stockVo;
-	}
-	public void setStockVo(ItemStockVo stockVo) {
-		this.stockVo = stockVo;
-	}
+
 	public ItemCategoryVo getItmCtVo() {
 		return categoryVo;
 	}
@@ -98,6 +99,30 @@ public class ItemVo {
 	/**商品カテゴリーコードを設定*/
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
+	}
+	/**ItemStockVoクラスの取得*/
+	public ItemStockVo getStockVo() {
+		return stockVo;
+	}
+	/**ItemStockVoクラスの設定*/
+	public void setStockVo(ItemStockVo stockVo) {
+		this.stockVo = stockVo;
+	}
+	/**ItemStockVoクラスの取得*/
+	public ItemAssortmentVo getAssortVo() {
+		return assortVo;
+	}
+	/**ItemAssortmentVoクラスの設定*/
+	public void setAssortVo(ItemAssortmentVo assortVo) {
+		this.assortVo = assortVo;
+	}
+	/**ItemCategoryVoクラスの取得*/
+	public ItemCategoryVo getCateVo() {
+		return cateVo;
+	}
+	/**ItemCategoryVoクラスの設定*/
+	public void setCateVo(ItemCategoryVo cateVo) {
+		this.cateVo = cateVo;
 	}
 
 }
