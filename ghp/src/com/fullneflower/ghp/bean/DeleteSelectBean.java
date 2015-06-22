@@ -2,6 +2,7 @@ package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,65 +27,72 @@ public class DeleteSelectBean implements  FullneflowerBean{
 	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)throws GhpException{
+		//コネクションを取る
+		Connection connection =null;
+		ConnectionManager cm = new ConnectionManager();
+		connection= cm.getConnection();
+		ItemDao itemDao= new ItemDao(connection);
+		/*配列の値を取り出して入れ物に入れる*/
+		String[] delItemNo = request.getParameterValues("check");
+		ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 
-		/*コネクションの宣言*/
-		Connection connection=null;
-		/*コネクションマネージャの宣言*/
-		ConnectionManager cm = new  ConnectionManager();
 		try{
-			/*コネクションを取得する*/
-			connection = cm.getConnection();
-			/*DAOにconnectionを設定する*/
-			ItemDao itemDao = new ItemDao(connection);
-			/*配列の値を取り出して入れ物に入れる*/
-			String[] deleteChk = request.getParameterValues("flower");
+			/*削除のチェックボタンにチェックは入っているかどうか確認*/
+			if(delItemNo==null){
+				List<ItemVo> itemList= itemDao.selectAll();
+				request.setAttribute("itemList", itemList);
+				String param = "ItemDeleteSelect";
 
-			/*
-			 * deleteChkの中に削除フラグが0の項目があったら一覧画面で遷移させエラー文を出力する
-			 * /
-			/*配列の中身の数だけDAOを繰り返し、リストに詰める*/
+				String error = msgresult.getString(param);
+				request.setAttribute("erro", error);
+				return "failure";
+			}
+			/*チェックされた項目に削除済の項目があれば一覧画面で遷移させエラー文を出力する*/
 			ArrayList<ItemVo> dataListChk = new ArrayList<ItemVo>();
-			for(int i=0; i<deleteChk.length; i++){
-				ItemVo itemVo =itemDao.deleteCheck(deleteChk[i]);
+			for(int i=0; i<delItemNo.length; i++){
+				ItemVo itemVo =itemDao.deleteCheck(delItemNo[i]);
 				dataListChk.add(itemVo);
 			}
-			/*削除された項目の数とチェックされたボタンの数*/
-			if(deleteChk.length!=dataListChk.size()){
-				String param = "ItemDeleteSelect";
-				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-				String erro = msgresult.getString(param);
-				request.setAttribute("erro", erro);
-				return "success";
+			/*未削除の項目の数とチェックされたボタンの数を比較
+			 * 一致しなければ、一覧画面にエラー文を出力
+			 */
+			if(delItemNo.length!=dataListChk.size()){
+				String param1= "ItemDeleteSelect";
+				String error1 = msgresult.getString(param1);
+				request.setAttribute("erro", error1);
+				return "failure";
 			}
 
 			/*
-			 * 全部削除できるやつなんで（削除フラグが1のもの）、
-			 * 配列の数と帰ってきた件数が一致しますかね？
+			 *在庫の有無を確認
+			 * ない場合は削除可能なので削除確認画面へ
+			 * ある場合は削除できないので一覧画面へ遷移しエラー文を出力
 			 */
 			ArrayList<ItemVo> dataList = new ArrayList<ItemVo>();
 			//配列の中身の数だけDAOにお願いします
-			for(int i=0; i<deleteChk.length; i++){
+			for(int i=0; i<delItemNo.length; i++){
 				//DAOが取得した結果はリストに
-				ItemVo itemVo =itemDao.deleteSelect(deleteChk[i]);
+				ItemVo itemVo =itemDao.deleteSelect(delItemNo[i]);
 				dataList.add(itemVo);
 				cm.commit();
 				System.out.println(itemVo+"deleSele");
 			}
-			if(deleteChk.length==dataList.size()){
+			if(delItemNo.length!=dataList.size()){
+				String param2 = "emDeleteNot";
+				String error2 = msgresult.getString(param2);
+				request.setAttribute("erro", error2);
+				return "failure";
+			}if(delItemNo.length==dataList.size()){
 				request.setAttribute("dataList", dataList);
 				return "success";
-			}else{
-				String param = "emDeleteNot";
-				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-				String erro = msgresult.getString(param); //errorメッセージ
-				request.setAttribute("erro", erro);
-				return "failure";
 			}
 		}catch(GhpException e){
-			throw new GhpException("DeleteSelectBeanでエラー", e);
+			cm.rollback();
+			throw new GhpException("DeleteBeanで失敗しました", e);
 		}finally{
 			cm.closeConnection();
 		}
+		return "error";
 	}
 }
 

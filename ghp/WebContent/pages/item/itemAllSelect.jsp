@@ -55,7 +55,7 @@
 		<input type="submit" name="add" value="商品追加" onClick="exec(0);">
 
 		 <input type="submit" name="delete" value="削除" onClick="exec(1);">
-		 <input type="hidden" name="action" value="item.Delete" >
+		 <input type="hidden" name="action" value="item.DeleteSelect" >
 		</form>
 
 	</center>
