@@ -226,147 +226,139 @@ public class ItemDao {
 
 
 	// SQLの定義
-	private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,category_code,assortment_code FROM ITEM WHERE ITEM_NO=?";
+		private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,CATEGORY_CODE,ASSORTMENT_CODE FROM ITEM WHERE ITEM_NO=?";
 
 
-	//publicの後ろは～型の返り値を返す
-	public List<ItemVo> selectPoint(String iNo) throws GhpException {
-		//System.out.println(iNo);
+		//publicの後ろは～型の返り値を返す
+		public List<ItemVo> selectPoint(String iNo) throws GhpException {
+			//System.out.println(iNo);
 
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try{
-			// SQLの作成(準備)
-			preparedStatement = connection.prepareStatement(SELECT_POINT);
-			// SQLバインド変数への値設定
-			preparedStatement.setString(1,iNo);
-			// SQLの実行
-			resultSet = preparedStatement.executeQuery();
-			//sqlから取得した値をVoに詰める
-			List<ItemVo> itemList = new ArrayList<ItemVo>();
-			ItemVo itemVo = new ItemVo();
-			while (resultSet.next()) {
-
-				itemVo.setItemName(resultSet.getString("ITEM_NAME"));
-				itemVo.setItemURL(resultSet.getString("ITEM_URL"));
-				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
-				itemVo.setSize(resultSet.getString("SIZE"));
-				//itemVo.setAssortmentCode(resultSet.getString("ASSORTMENT"));
-				//itemVo.setCategoryCode(resultSet.getString("CATEGORY"));
-
-				itemList.add(itemVo);
-			}
-			return itemList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new GhpException("ステートメントの解放に失敗しました", e);
-		}finally{
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
 			try{
-				if (preparedStatement != null) {
-					preparedStatement.close();
-					System.out.println("ステートメントの解放に成功しました");
+				// SQLの作成(準備)
+				preparedStatement = connection.prepareStatement(SELECT_POINT);
+				// SQLバインド変数への値設定
+				preparedStatement.setString(1,iNo);
+				// SQLの実行
+				resultSet = preparedStatement.executeQuery();
+				//sqlから取得した値をVoに詰める
+				List<ItemVo> itemList = new ArrayList<ItemVo>();
+				ItemVo itemVo = new ItemVo();
+				while (resultSet.next()) {
+
+					itemVo.setItemName(resultSet.getString("ITEM_NAME"));
+					itemVo.setItemURL(resultSet.getString("ITEM_URL"));
+					itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
+					itemVo.setSize(resultSet.getString("SIZE"));
+					itemVo.setAssortmentCode(resultSet.getString("assortment_code"));
+					itemVo.setCategoryCode(resultSet.getString("category_code"));
+
+					itemList.add(itemVo);
 				}
-			} catch (SQLException e) {
+				return itemList;
+			} catch (Exception e) {
 				e.printStackTrace();
 				throw new GhpException("ステートメントの解放に失敗しました", e);
+			}finally{
+				try{
+					if (preparedStatement != null) {
+						preparedStatement.close();
+						System.out.println("ステートメントの解放に成功しました");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new GhpException("ステートメントの解放に失敗しました", e);
 
+				}
+			}
+		}
+
+
+		private static String ASSORTMENT = "select assortment_code,assortment_name,explain from item_assortment ";
+		//"SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
+		/**
+		 *
+		 * [機 能] 全件参照するメソッド<br>
+		 * [説 明] 部署テーブルの全件を参照する。<br>
+		 * [備 考] なし
+		 * @return
+		 */
+		public List<ItemAssortmentVo> assortment() {
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				preparedStatement = connection.prepareStatement(ASSORTMENT);
+				resultSet = preparedStatement.executeQuery();
+				List<ItemAssortmentVo> assortmentList = new ArrayList<ItemAssortmentVo>();
+				while (resultSet.next()) {
+					ItemAssortmentVo assortmentVo = new ItemAssortmentVo();
+					assortmentVo.setAssortmentCode(resultSet.getString("ASSORTMENT_CODE"));
+					assortmentVo.setAssortmentName(resultSet.getString("ASSORTMENT_NAME"));
+					assortmentVo.setAssortmentExplain(resultSet.getString("EXPLAIN"));
+					assortmentList.add(assortmentVo);
+				}
+				return assortmentList;
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			} finally {
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+				try {
+					if (preparedStatement != null) {
+						preparedStatement.close();
+					}
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+		private static String CATEGORY = "select category_code,category_name,explain from item_category ";
+		//"SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
+		/**
+		 *
+		 * [機 能] 全件参照するメソッド<br>
+		 * [説 明] 部署テーブルの全件を参照する。<br>
+		 * [備 考] なし
+		 * @return
+		 */
+		public List<ItemCategoryVo> category() {
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			try {
+				preparedStatement = connection.prepareStatement(CATEGORY);
+				resultSet = preparedStatement.executeQuery();
+				List<ItemCategoryVo> categoryList = new ArrayList<ItemCategoryVo>();
+				while (resultSet.next()) {
+					ItemCategoryVo categoryVo = new ItemCategoryVo();
+					categoryVo.setCategoryCode(resultSet.getString("CATEGORY_CODE"));
+					categoryVo.setCategoryName(resultSet.getString("CATEGORY_NAME"));
+					categoryVo.setCategoryExplain(resultSet.getString("EXPLAIN"));
+					categoryList.add(categoryVo);
+				}
+				return categoryList;
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			} finally {
+				try {
+					if (resultSet != null) {
+						resultSet.close();
+					}
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+				try {
+					if (preparedStatement != null) {
+						preparedStatement.close();
+					}
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 	}
-	private static String ASSORTMENT = "select assortment_code,assortment_name,explain from item_assortment ";
-	//"SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
-
-
-
-
-	/**
-	 *
-	 * [機 能] 全件参照するメソッド<br>
-	 * [説 明] 部署テーブルの全件を参照する。<br>
-	 * [備 考] なし
-	 * @return
-	 */
-	public List<ItemAssortmentVo> assortment() {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement(ASSORTMENT);
-			resultSet = preparedStatement.executeQuery();
-			List<ItemAssortmentVo> assortmentList = new ArrayList<ItemAssortmentVo>();
-			while (resultSet.next()) {
-				ItemAssortmentVo assortmentVo = new ItemAssortmentVo();
-				assortmentVo.setAssortmentCode(resultSet.getString("ASSORTMENT_CODE"));
-				assortmentVo.setAssortmentName(resultSet.getString("ASSORTMENT_NAME"));
-				assortmentVo.setAssortmentExplain(resultSet.getString("EXPLAIN"));
-				assortmentList.add(assortmentVo);
-
-			}
-			return assortmentList;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	}
-	private static String CATEGORY = "select category_code,category_name,explain from item_category ";
-	//"SELECT * FROM ITEM ORDER BY ITEM_NO ASC";
-
-
-
-
-	/**
-	 *
-	 * [機 能] 全件参照するメソッド<br>
-	 * [説 明] 部署テーブルの全件を参照する。<br>
-	 * [備 考] なし
-	 * @return
-	 */
-	public List<ItemCategoryVo> category() {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement(CATEGORY);
-			resultSet = preparedStatement.executeQuery();
-			List<ItemCategoryVo> categoryList = new ArrayList<ItemCategoryVo>();
-			while (resultSet.next()) {
-				ItemCategoryVo categoryVo = new ItemCategoryVo();
-				categoryVo.setCategoryCode(resultSet.getString("CATEGORY_CODE"));
-				categoryVo.setCategoryName(resultSet.getString("CATEGORY_NAME"));
-				categoryVo.setCategoryExplain(resultSet.getString("EXPLAIN"));
-				categoryList.add(categoryVo);
-
-			}
-			return categoryList;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	}
-}

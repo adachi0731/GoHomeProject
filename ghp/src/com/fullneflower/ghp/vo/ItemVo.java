@@ -13,7 +13,7 @@ public class ItemVo {
 	/**寸法*/
 	private String size;
 	/**商品種別コード*/
-	private String assortmentCode;
+	private String assortmentCode;//つめて
 	/**商品カテゴリーコード*/
 	private String categoryCode;
 	/**商品カテゴリークラス*/
@@ -21,13 +21,13 @@ public class ItemVo {
 	/** 商品在庫クラス*/
 	private ItemStockVo stockVo;
 	/** 商品種別クラス*/
-	private ItemAssortmentVo assortVo;
+	private ItemAssortmentVo assortmentVo;//がいとうNoをかえす
 
-	public ItemAssortmentVo getAssortVo() {
-		return assortVo;
+	public ItemAssortmentVo getAssortmentVo() {
+		return assortmentVo;
 	}
-	public void setAssortVo(ItemAssortmentVo assortVo) {
-		this.assortVo = assortVo;
+	public void setAssortVo(ItemAssortmentVo assortmentVo) {
+		this.assortmentVo = assortmentVo;
 	}
 	public ItemStockVo getStockVo() {
 		return stockVo;
