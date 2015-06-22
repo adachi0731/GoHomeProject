@@ -22,6 +22,7 @@ public class UpdateBean implements  FullneflowerBean{
 	 *[機能]入力された値をデータベースに更新した結果を受け取るメソッド。
 	 *[説明]更新結果が"1件"の場合"success"をreturnで返す。
 	 *      更新結果が"1件以外"の場合"failer"returnで返す。
+	 *@author 足立
 	 *@param HttpServletRequest request, HttpServletResponse response
 	 *@throws GhpException
 	 *@return 更新件数

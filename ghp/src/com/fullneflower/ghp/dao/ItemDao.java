@@ -74,6 +74,7 @@ public class ItemDao {
 			"ASSORTMENT_CODE=?, CATEGORY_CODE=? " +
 			"WHERE ITEM_NO=?";
 	/* [備考]なし
+	 * @author 足立
 	 * @param itemV
 	 * @return 更新件数
 	 * @throws GhpException
