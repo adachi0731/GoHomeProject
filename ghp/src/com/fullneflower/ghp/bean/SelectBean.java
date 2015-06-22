@@ -45,12 +45,12 @@ public class SelectBean implements  FullneflowerBean{
 			request.setAttribute("selectVo", tmpVo);
 			request.setAttribute("itemVo", itemVo);
 
-
+			cm.closeConnection();
 			return "success";
 		}catch(GhpException e){
 			return "failure";
 		}
-		}
-
 	}
+
+}
 
