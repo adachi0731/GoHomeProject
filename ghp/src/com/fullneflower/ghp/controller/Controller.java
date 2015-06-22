@@ -26,12 +26,12 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		try {
 			String param = request.getParameter("action");
+			System.out.println("param:" + param);
 			ResourceBundle rb = ResourceBundle.getBundle("Resource");
 			String clazz = rb.getString(param);
 			Class cls = Class.forName(clazz);
 			Object obj = cls.newInstance();
 			FullneflowerBean bean = (FullneflowerBean)obj;
-
 			String ret = bean.execute(request, response);
 			String path = rb.getString(param + "." + ret);
 			System.out.println("遷移先のパス:" + path);
