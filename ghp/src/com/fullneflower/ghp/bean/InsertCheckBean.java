@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fullneflower.ghp.dao.ConnectionManager;
 import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
+import com.fullneflower.ghp.vo.ItemAssortmentVo;
+import com.fullneflower.ghp.vo.ItemCategoryVo;
 import com.fullneflower.ghp.vo.ItemVo;
 
 public class InsertCheckBean implements  FullneflowerBean{
@@ -136,8 +138,13 @@ public class InsertCheckBean implements  FullneflowerBean{
 			itemVo.setSize(size);
 			itemVo.setAssortmentCode(assortment);
 			itemVo.setCategoryCode(category);
-			List<ItemVo> itemList= itemDao.selectAll();
-			request.setAttribute("itemList", itemList);
+			request.setAttribute("itemVo", itemVo);
+			List<ItemVo> itemList = itemDao.selectPoint(itemNo);
+        	request.setAttribute("itemList", itemList);
+        	List<ItemAssortmentVo> assortmentList= itemDao.assortment();
+			request.setAttribute("assortmentList", assortmentList);
+			List<ItemCategoryVo> categoryList= itemDao.category();
+			request.setAttribute("categoryList", categoryList);
 
 			result = "success";
 		}

@@ -118,33 +118,17 @@ public class UpdateCheckBean implements  FullneflowerBean{
 			itemVo.setItemName(itemName);
 			itemVo.setItemURL(URL);
 			itemVo.setUnitPrice(Integer.parseInt(unitPrice));
-			System.out.println(Integer.parseInt(unitPrice));
 			itemVo.setSize(size);
 			itemVo.setAssortmentCode(assortment);
-			itemVo.setAssortmentCode(category);
+			itemVo.setCategoryCode(category);
 
-			//List<ItemVo> itemSelect=itemDao.selectPoint(itemNo);
-			//ItemVo tmpVo = itemSelect.get(0);
-			//request.setAttribute("selectVo", tmpVo);
-
-			request.setAttribute("itemNo", itemNo);
+			request.setAttribute("itemVo", itemVo);
 			List<ItemVo> itemList = itemDao.selectPoint(itemNo);
         	request.setAttribute("itemList", itemList);
         	List<ItemAssortmentVo> assortmentList= itemDao.assortment();
 			request.setAttribute("assortmentList", assortmentList);
 			List<ItemCategoryVo> categoryList= itemDao.category();
 			request.setAttribute("categoryList", categoryList);
-			/*
-			request.setAttribute("No", itemNo);
-			request.setAttribute("Name", itemName);
-			request.setAttribute("Url", URL);
-			request.setAttribute("Price", unitPrice);
-			request.setAttribute("Size", size);
-			request.setAttribute("Assortment", assortment);
-			request.setAttribute("Category", category);
-			List<ItemVo> itemList= itemDao.selectAll();
-			request.setAttribute("itemList", itemList);
-			*/
 			result = "success";
 		}
 		System.out.println(result);

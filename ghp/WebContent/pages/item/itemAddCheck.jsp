@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,9 +14,9 @@
 	function exec(num) {
 		if (num == 0) {
 
-			document.forms[0].action.value = "item.AllSelect";
-		} else {
 			document.forms[0].action.value = "item.Insert";
+		} else {
+			document.forms[0].action.value = "item.AllSelect";
 		}
 		//		alert(url[num]);
 		//		document.myForm.action = url[num];
@@ -41,31 +42,38 @@
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
-					<td><input type="hidden" name="itemNo" value="${itemList.itemNo}">${itemList.itemNo}</td>
+					<td><input type="hidden" name="itemNo" value="${itemVo.itemNo}">${itemVo.itemNo}</td>
 				</tr>
 				<tr>
 					<th>商品名</th>
-					<td><input type="hidden" name="itemName" value="${itemList.itemName}">${itemList.itemName}</td>
+					<td><input type="hidden" name="itemName" value="${itemVo.itemName}">${itemVo.itemName}</td>
 				</tr>
 				<tr>
 					<th>商品画像</th>
-					<td><input type="hidden" name="URL" value="${itemList.Url}">${itemList.url}</td>
+					<td><input type="hidden" name="URL" value="${itemVo.itemURL}">${itemVo.itemURL}</td>
 				</tr>
 				<tr>
 					<th>単価</th>
-					<td><input type="hidden" name="unitPrice" value="${itemList.unitPrice}">${Price}</td>
+					<td><input type="hidden" name="unitPrice" value="${itemVo.unitPrice}">${itemVo.unitPrice}</td>
 				</tr>
 				<tr>
 					<th>寸法</th>
-					<td><input type="hidden" name="size" value="${itemList.size}">${itemList.size}</td>
+					<td><input type="hidden" name="size" value="${itemVo.size}">${itemVo.size}cm</td>
 				</tr>
 				<tr>
 					<th>種別</th>
-					<td><input type="hidden" name="assortment" value="${itemList.assortmentCode}">${itemList.assortmentCode}</td>
+
+
+					<td><c:forEach var="assortment" items="${assortmentList}">
+								<c:if test="${assortment.assortmentCode==itemVo.assortmentCode }">${assortment.assortmentName}</c:if>
+							</c:forEach>
+								</td>
 				</tr>
 				<tr>
 					<th>カテゴリー</th>
-					<td><input type="hidden" name="category" value="${itemList.categoryCode}">${itemList.categoryCode}</td>
+					<td><c:forEach var="category" items="${categoryList}">
+								<c:if test="${category.categoryCode==itemVo.categoryCode }">${category.categoryName}</c:if>
+							</c:forEach></td>
 				</tr>
 			</table>
  <input type="submit" value="登録" onClick="exec(0);">
