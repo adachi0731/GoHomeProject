@@ -43,7 +43,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		Pattern urlPattern = Pattern.compile("(.*)[^\\.jpg]+$");
 		Matcher ItemUrl = urlPattern.matcher(URL);
 		//寸法のチェック
-		Pattern sizePattern = Pattern.compile("[1-9][0-9]+x+[1-9][0-9]+x+[1-9][0-9]+$");
+		Pattern sizePattern = Pattern.compile("[0-99]+x+[0-99]+x+[0-99]+$");
 		Matcher ItemSize = sizePattern.matcher(size);
 
 		if("".equals(itemName)){

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var url = new Array("itemAdd.jsp","/ghp/controller");
+	var url = new Array("/ghp/pages/item/itemAdd.jsp","/ghp/controller");
 	function exec(num) {
 		document.myForm.action = url[num];
 	}

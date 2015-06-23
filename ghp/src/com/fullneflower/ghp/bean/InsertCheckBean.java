@@ -133,20 +133,11 @@ public class InsertCheckBean implements  FullneflowerBean{
 			itemVo.setItemName(itemName);
 			itemVo.setItemURL(URL);
 			itemVo.setUnitPrice(Integer.parseInt(unitPrice));
-			System.out.println(Integer.parseInt(unitPrice));
 			itemVo.setSize(size);
 			itemVo.setAssortmentCode(assortment);
 			itemVo.setCategoryCode(category);
-			List<ItemVo>  selectPulldown = itemDao.selectAll();
-			System.out.println(itemVo.getItemNo());
-			System.out.println(itemVo.getItemName());
-			System.out.println(itemVo.getItemURL());
-			System.out.println(itemVo.getUnitPrice());
-			System.out.println(itemVo.getSize());
-			System.out.println(itemVo.getAssortmentCode());
-			System.out.println(itemVo.getCategoryCode());
-
-			request.setAttribute("selectPulldown",selectPulldown);
+			List<ItemVo> itemList= itemDao.selectAll();
+			request.setAttribute("itemList", itemList);
 
 			result = "success";
 		}
