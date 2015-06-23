@@ -35,7 +35,8 @@
 		<h2>商品情報メンテナンス</h2>
 
 		以下の内容で商品情報を登録します。<br> 登録内容を確認の上、「登録」ボタンを押してください。<br> <br>
-
+<form class="errorMessage">
+</form>
 	<form name="myForm" action="/ghp/controller" method="post">
 
 

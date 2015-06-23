@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="/ghp/css/menu.css" rel="stylesheet" type="text/css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script language="JavaScript">
   </script>
@@ -16,7 +17,7 @@
 		<h2>FullneFlower 受発注管理システム</h2>
 		<hr>
 		<p>社員番号とパスワードを入力してください。</p>
-		${erro}
+		<form class="errorMessage">${erro}</form>
 		<form action="/ghp/controller" method="post">
 			<table>
 				<tr>

@@ -20,3 +20,7 @@ table.style{
 	width:1150px;
 
 }
+.errorMessage{
+    color: red;
+    font: bold;
+}

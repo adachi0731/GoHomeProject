@@ -37,10 +37,12 @@
 					<h2>商品情報メンテナンス</h2>
 
 					商品情報を新規登録します。<br> 登録内容を入力して、「送信」ボタンを押してください。<br>
+					<form class="errorMessage">
 					${errorItemNo}<br> ${errorItemName} ${errorItemNameCorrect}<br>
 					${errorItemUrl}<br> ${errorItemUnitPrice}<br>
 					${errorItemSize} ${errorItemSizeCorrect}<br>
 					${errorItemRegistered }
+					</form>
 
 					<form name="myForm" action="/ghp/controller" method="post">
 
