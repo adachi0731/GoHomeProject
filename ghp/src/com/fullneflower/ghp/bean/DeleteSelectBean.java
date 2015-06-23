@@ -35,7 +35,6 @@ public class DeleteSelectBean implements  FullneflowerBean{
 		/*配列の値を取り出して入れ物に入れる*/
 		String[] delItemNo = request.getParameterValues("check");
 		ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-
 		try{
 			/*削除のチェックボタンにチェックは入っているかどうか確認*/
 			if(delItemNo==null){
@@ -51,18 +50,21 @@ public class DeleteSelectBean implements  FullneflowerBean{
 			ArrayList<ItemVo> dataListChk = new ArrayList<ItemVo>();
 			for(int i=0; i<delItemNo.length; i++){
 				ItemVo itemVo =itemDao.deleteCheck(delItemNo[i]);
+				if(itemVo!=null){
 				dataListChk.add(itemVo);
+				}
 			}
 			/*未削除の項目の数とチェックされたボタンの数を比較
 			 * 一致しなければ、一覧画面にエラー文を出力
 			 */
-			if(delItemNo.length!=dataListChk.size()){
+			if(delItemNo.length>dataListChk.size()){
+				List<ItemVo> itemList= itemDao.selectAll();
+				request.setAttribute("itemList", itemList);
 				String param1= "ItemDeleteSelect";
 				String error1 = msgresult.getString(param1);
 				request.setAttribute("erro", error1);
 				return "failure";
 			}
-
 			/*
 			 *在庫の有無を確認
 			 * ない場合は削除可能なので削除確認画面へ
@@ -73,18 +75,22 @@ public class DeleteSelectBean implements  FullneflowerBean{
 			for(int i=0; i<delItemNo.length; i++){
 				//DAOが取得した結果はリストに
 				ItemVo itemVo =itemDao.deleteSelect(delItemNo[i]);
-				dataList.add(itemVo);
-				cm.commit();
-				System.out.println(itemVo+"deleSele");
+				if(itemVo!=null){
+					dataList.add(itemVo);
+				}
 			}
-			if(delItemNo.length!=dataList.size()){
-				String param2 = "emDeleteNot";
+			cm.commit();
+			if(delItemNo.length==dataList.size()){
+				request.setAttribute("dataList", dataList);
+				return "success";
+			}else{
+				List<ItemVo> itemList= itemDao.selectAll();
+				request.setAttribute("itemList", itemList);
+				System.out.println("deleSele");
+				String param2 = "ItemDeleteNot";
 				String error2 = msgresult.getString(param2);
 				request.setAttribute("erro", error2);
 				return "failure";
-			}if(delItemNo.length==dataList.size()){
-				request.setAttribute("dataList", dataList);
-				return "success";
 			}
 		}catch(GhpException e){
 			cm.rollback();
@@ -92,7 +98,6 @@ public class DeleteSelectBean implements  FullneflowerBean{
 		}finally{
 			cm.closeConnection();
 		}
-		return "error";
 	}
 }
 

@@ -169,7 +169,7 @@ public class ItemDao {
 	 */
 	private static String DELETESelect = "SELECT i.item_no,i.item_name,i.unit_price,i.size,a.assortment_name,c.category_name "+
 			"FROM item i INNER JOIN item_assortment a ON i.assortment_code=a.assortment_code INNER JOIN item_category c ON i.category_code=c.category_code" +
-			" INNER JOIN item_stock s ON i.item_no=s.item_no WHERE i.item_no=? and s.stock!=0;";
+			" INNER JOIN item_stock s ON i.item_no=s.item_no WHERE i.item_no=? and s.stock=0;";
 
 	public ItemVo deleteSelect(String itemNo)throws GhpException {
 		// ステートメントの定義

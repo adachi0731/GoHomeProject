@@ -15,7 +15,7 @@
 	function exec(num) {
 		if (num == 0) {
 
-			document.forms[0].action.value="item.AllSelect";
+			document.forms[0].action.value="item.Delete";
 		}else {
 			document.forms[0].action.value="item.AllSelect";
 		}
@@ -34,9 +34,7 @@
 		<h2>商品情報メンテナンス</h2>
 
 		下記の商品情報を削除します。<br> 内容を確認の上、「削除」ボタンを押してください。<br> <br>
-<form class="errorMessage">
 
-</form>
 
 		<form name="myForm" action="/ghp/controller" method="post">
 			<table border="1">

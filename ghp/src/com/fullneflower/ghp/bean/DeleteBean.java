@@ -1,6 +1,7 @@
 package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fullneflower.ghp.dao.ConnectionManager;
 import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
+import com.fullneflower.ghp.vo.ItemVo;
 /**
  *インターフェース(FullneflowerBean)の実装
  * @author Owner
@@ -43,6 +45,8 @@ public class DeleteBean implements  FullneflowerBean{
 				resultCnt += itemVo;
 				if(resultCnt==delItemNo.length){
 					cm.commit();
+					List<ItemVo> itemList= itemDao.selectAll();
+					request.setAttribute("itemList", itemList);
 					return "success";
 				}
 			}
