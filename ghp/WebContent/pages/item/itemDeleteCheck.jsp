@@ -7,6 +7,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+//	var url = new Array("/ghp/controller", "/ghp/pages/item/itemAllSelect.jsp");
+	//これはテキスト実装編のP43のまま
+	//submitとbuttonの違いだけ
+	function exec(num) {
+		if (num == 0) {
+
+			document.forms[0].action.value="item.AllSelect";
+		}else {
+			document.forms[0].action.value="item.AllSelect";
+		}
+	}
+</script>
 </head>
 <body>
 	<center>
@@ -15,7 +28,7 @@
 		下記の商品情報を削除します。<br> 内容を確認の上、「削除」ボタンを押してください。<br> <br>
 
 
-		<form action="/ghp/controller" method="post">
+		<form name="myForm" action="/ghp/controller" method="post">
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
@@ -38,9 +51,9 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<br> <input type="submit" name="add" value="削除" />
-			<input type="submit" name="delete" value="戻る" />
-			<input type="hidden" name="action" value="item.Delete">
+			<br><input type="submit" name="add" value="削除" onClick="exec(0);"/>
+			<input type="submit" name="delete" value="戻る" onClick="exec(1);"/>
+			<input type="hidden" name="action" value="">
 		</form>
 	</center>
 </body>

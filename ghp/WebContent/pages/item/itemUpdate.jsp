@@ -7,9 +7,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var url = new Array("item_maint_update_confirm.html", "item_maint.html");
+//	var url = new Array("/ghp/controller", "/ghp/pages/item/itemAllSelect.jsp");
+	//これはテキスト実装編のP43のまま
+	//submitとbuttonの違いだけ
 	function exec(num) {
-		document.myForm.action = url[num];
+		if (num == 0) {
+
+			document.forms[0].action.value="item.UpdateCheck";
+		}else {
+			document.forms[0].action.value="item.AllSelect";
+		}
+//		alert(url[num]);
+//		document.myForm.action = url[num];
 	}
 </script>
 </head>
@@ -28,12 +37,11 @@
 
 
 
-		<form action="/ghp/controller" method="post">
-
+		<form name="myForm" action="/ghp/controller" method="post">
 			<table border="1">
 				<tr>
 					<th>商品番号</th>
-					<td>${itemVo.itemNo}</td>
+					<td><input type="hidden" name="itemNo" value="${itemVo.itemNo}" >${itemVo.itemNo}</td>
 				</tr>
 				<tr>
 					<th>商品名</th>
@@ -71,12 +79,6 @@
 					<th>カテゴリー</th>
 					<td><select name="categoryCode">
 							<c:forEach var="category" items="${categoryList}">
-							<%-- 今これなければ動く？どこから起動する？　ひとまず固定値ね（ハードコーディング）んじゃ同的にするには？3の部分がどうなる？selectVoのcategoryCodeと一致すればーにしたらいんじゃね？わかる？
-							検索結果の値がselectVoに詰まってるんでしょ？商品No1なら、商品名はバラ、カテゴリコードは3、　商品No2なら、（たとえば）商品名はゆり、カテゴリコードは4　とか。動的に星井のは、
-														categoryCode  なくね？？？？？DAOでセットした？
-														ということばい。
-														同じように種別もやる。できるかな？
-							 --%>
 								<option value="${category.categoryCode}"
 									<c:if test="${category.categoryCode==selectVo.categoryCode }"> selected</c:if>
 								>
@@ -86,12 +88,12 @@
 				</tr>
 			</table>
 
-			<br> <input type="submit" value="送信"> <input
-				type="hidden" name="action" value="item.UpdateCheck">
+			<br> <input type="submit" name="update" value="送信" onClick="exec(0);">
+			<input type="submit"  name ="back"value="戻る" onClick="exec(1);">
+			<%-- まずここね。valueにあらかじめ値を入れてしまうとJSで制御できない（固定値 --%>
+			<input type="hidden" name="action" value="">
 		</form>
-		<form action="/ghp/pages/item/itemAllSelect.jsp">
-			<input type="submit" name="submit" value="戻る">
-		</form>
+
 
 	</center>
 </body>

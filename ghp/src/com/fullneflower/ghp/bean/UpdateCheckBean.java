@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fullneflower.ghp.dao.ConnectionManager;
 import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
+import com.fullneflower.ghp.vo.ItemAssortmentVo;
+import com.fullneflower.ghp.vo.ItemCategoryVo;
 import com.fullneflower.ghp.vo.ItemVo;
 
 public class UpdateCheckBean implements  FullneflowerBean{
@@ -26,8 +28,8 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		String itemName = request.getParameter("itemName");
 		String URL = request.getParameter("URL");
 		String unitPrice = request.getParameter("unitPrice");
-		String assortment = request.getParameter("assortment");
-		String category = request.getParameter("category");
+		String assortment = request.getParameter("assortmentCode");
+		String category = request.getParameter("categoryCode");
 
 
 
@@ -121,6 +123,18 @@ public class UpdateCheckBean implements  FullneflowerBean{
 			itemVo.setAssortmentCode(assortment);
 			itemVo.setAssortmentCode(category);
 
+			//List<ItemVo> itemSelect=itemDao.selectPoint(itemNo);
+			//ItemVo tmpVo = itemSelect.get(0);
+			//request.setAttribute("selectVo", tmpVo);
+
+			request.setAttribute("itemNo", itemNo);
+			List<ItemVo> itemList = itemDao.selectPoint(itemNo);
+        	request.setAttribute("itemList", itemList);
+        	List<ItemAssortmentVo> assortmentList= itemDao.assortment();
+			request.setAttribute("assortmentList", assortmentList);
+			List<ItemCategoryVo> categoryList= itemDao.category();
+			request.setAttribute("categoryList", categoryList);
+			/*
 			request.setAttribute("No", itemNo);
 			request.setAttribute("Name", itemName);
 			request.setAttribute("Url", URL);
@@ -130,6 +144,7 @@ public class UpdateCheckBean implements  FullneflowerBean{
 			request.setAttribute("Category", category);
 			List<ItemVo> itemList= itemDao.selectAll();
 			request.setAttribute("itemList", itemList);
+			*/
 			result = "success";
 		}
 		System.out.println(result);

@@ -5,6 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+//	var url = new Array("/ghp/controller", "/ghp/pages/item/itemAllSelect.jsp");
+	//これはテキスト実装編のP43のまま
+	//submitとbuttonの違いだけ
+	function exec(num) {
+		if (num == 0) {
+
+			document.forms[0].action.value="item.InsertCheck";
+		}else {
+			document.forms[0].action.value="item.AllSelect";
+		}
+//		alert(url[num]);
+//		document.myForm.action = url[num];
+	}
+</script>
 </head>
 <body>
 	<center>
@@ -16,7 +31,7 @@
 		${errorItemSize} ${errorItemSizeCorrect}<br>
 		${errorItemRegistered }
 
-		<form action="/ghp/controller" method="post">
+		<form name="myForm" action="/ghp/controller" method="post">
 
 			<table border="1">
 				<tr>
@@ -57,11 +72,10 @@
 				</tr>
 			</table>
 
-			<br> <input type="submit" value="送信"> <input
-				type="hidden" name="action" value="item.InsertCheck">
-		</form>
-		<form action="/ghp/pages/item/itemAllSelect.jsp">
-			<input type="submit" name="submit" value="戻る">
+			<br><input type="submit" value="送信" onClick="exec(0);">
+			<input type="hidden" name="action" value="">
+
+			<input type="submit" name="submit" value="戻る" onClick="exec(1);">
 		</form>
 	</center>
 </body>
