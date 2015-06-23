@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+.menu {
+	width:300px;
+	height:auto;
+	text-align:left;
+	border-right:2px solid #a9a9a9;
+}
+.header{
+	width:1150px;
+	border-bottom: 2px solid #a9a9a9;
+}
+.vline{
+	width:5px;
+}
+.main{
+	width:845px;
+}
+table.style{
+	width:1150px;
+
+}

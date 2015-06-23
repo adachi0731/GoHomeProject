@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="/ghp/css/menu.css" rel="stylesheet" type="text/css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -14,10 +15,17 @@
 </script>
 </head>
 <body>
+<table class="style" >
+	<tr>
+		<td class="header" colspan="2" align="center"><jsp:include page="/pages/log/header.jsp" /></td>
+	</tr>
+	<tr>
+		<td class="menu" valign=top><jsp:include page="/pages/log/menu.jsp" /></td>
+		<td class="main" valign="top">
 	<center>
 		<h2>商品情報メンテナンス</h2>
 
-  		<br>${erro }<br>
+  		<br>${erro}<br>
 		商品情報のメンテナンスを行います。<br> 新規に取扱商品を追加する場合は、「商品追加」ボタンを押してください。<br>
 		登録済み商品の情報を変更するには、商品名のリンクをクリックしてください。<br>
 		商品を削除する場合は、リストの右にある「削除」をチェックし、「削除」ボタンを押してください。<br>
@@ -59,6 +67,9 @@
 
 
 	</center>
+	</td>
+	</tr>
+	</table>
 </body>
 
 </html>
