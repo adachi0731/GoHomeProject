@@ -24,16 +24,20 @@ public class InsertCheckBean implements  FullneflowerBean{
 
 		 Connection connection = connectionManager.getConnection();
 		// TODO 自動生成されたメソッド・スタブ
+
 		String result = "failure";
 		String itemNo = request.getParameter("itemNo");
 		String itemName = request.getParameter("itemName");
 		String URL = request.getParameter("URL");
+		System.out.println("URLURL::::"+request.getParameter("URL"));
 		String unitPrice = request.getParameter("unitPrice");
 		String assortment = request.getParameter("assortmentCode");
 		String category = request.getParameter("categoryCode");
 		String size = request.getParameter("size");
 		ItemDao itemDao = new ItemDao(connection);
 		List<ItemVo> itemList = itemDao.selectPoint(itemNo);
+		List<ItemVo> itemAllList= itemDao.selectAll();
+
 		List<ItemAssortmentVo> assortmentList= itemDao.assortment();
 		List<ItemCategoryVo> categoryList= itemDao.category();
 		//商品番号のチェック
@@ -78,13 +82,13 @@ public class InsertCheckBean implements  FullneflowerBean{
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
 		}
-		if(!ItemUrl.matches()){
+		if("".equals(URL)){
+
+		}else if(!ItemUrl.matches()){
 			String param = "ItemUrl";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
-		}else{
-
 		}
 		if(!ItemUnitPrice.matches()){
 			String param = "ItemUnitPrice";
@@ -116,7 +120,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 			result = "success";
 		} else {
 			result = "failure";
-			request.setAttribute("itemList", itemList);
+			request.setAttribute("itemList", itemAllList);
 			request.setAttribute("assortmentList", assortmentList);
 			request.setAttribute("categoryList", categoryList);
 			request.setAttribute("error", error);
