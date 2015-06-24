@@ -95,7 +95,7 @@ public class ItemDao {
 			preparedStatement.setString(5, itemV.getAssortmentCode());
 			preparedStatement.setString(6, itemV.getCategoryCode());
 			preparedStatement.setString(7, itemV.getItemNo());
-			preparedStatement.setString(8, itemV.getItemName());
+
 
 			// SQLの実行
 			int result = preparedStatement.executeUpdate();
