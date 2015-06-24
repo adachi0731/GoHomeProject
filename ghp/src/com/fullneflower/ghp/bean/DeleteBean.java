@@ -57,21 +57,5 @@ public class DeleteBean implements  FullneflowerBean{
 			cm.closeConnection();
 		}
 		return"failure";
-
-		/**
-		 * [機能]削除チェックのついた商品数を求める。
-		 */
-
-
-
-		/**
-		 * [機能]削除チェックのついた商品数とデータベースで削除した商品数が”＝”であるかを求める。
-		 * [説明]商品数が同じであれば”success”
-		 *          異なれば”failer”を返す。
-		 * @return "success" or "failer"
-		 */
-
-
 	}
 }
-

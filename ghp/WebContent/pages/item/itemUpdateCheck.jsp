@@ -42,17 +42,22 @@
 				<tr>
 					<th>種別</th>
 
-
 					<td><c:forEach var="assortment" items="${assortmentList}">
-								<c:if test="${assortment.assortmentCode==itemVo.assortmentCode }">${assortment.assortmentName}</c:if>
-							</c:forEach>
+								<c:if test="${assortment.assortmentCode==itemVo.assortmentCode }">${assortment.assortmentName}
+								</c:if>
+						</c:forEach>
+						<input type="hidden" name="assortment" value="${itemVo.assortmentCode}">
 								</td>
 				</tr>
 				<tr>
 					<th>カテゴリー</th>
+
 					<td><c:forEach var="category" items="${categoryList}">
-								<c:if test="${category.categoryCode==itemVo.categoryCode }">${category.categoryName}</c:if>
-							</c:forEach></td>
+							<c:if test="${category.categoryCode==itemVo.categoryCode }">${category.categoryName}
+							</c:if>
+						</c:forEach>
+						<input type="hidden" name="category" value="${itemVo.categoryCode}">
+						</td>
 				</tr>
 			</table>
 

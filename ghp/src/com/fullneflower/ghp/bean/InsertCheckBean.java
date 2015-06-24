@@ -24,113 +24,83 @@ public class InsertCheckBean implements  FullneflowerBean{
 
 		 Connection connection = connectionManager.getConnection();
 		// TODO 自動生成されたメソッド・スタブ
-		int checkFlg=1;
 		String result = "failure";
 		String itemNo = request.getParameter("itemNo");
 		String itemName = request.getParameter("itemName");
 		String URL = request.getParameter("URL");
 		String unitPrice = request.getParameter("unitPrice");
-		String assortment = request.getParameter("assortment");
-		String category = request.getParameter("category");
-
-
-
+		String assortment = request.getParameter("assortmentCode");
+		String category = request.getParameter("categoryCode");
 		String size = request.getParameter("size");
-
-
-
+		ItemDao itemDao = new ItemDao(connection);
+		List<ItemVo> itemList = itemDao.selectPoint(itemNo);
+		List<ItemAssortmentVo> assortmentList= itemDao.assortment();
+		List<ItemCategoryVo> categoryList= itemDao.category();
 		//商品番号のチェック
-		Pattern noPattern = Pattern.compile("\\d{4}$");
+		Pattern noPattern = Pattern.compile("^[0-9]{4}");
 		Matcher ItemNo = noPattern.matcher(itemNo);
 		//商品名のチェック
-		Pattern namePattern = Pattern.compile("^[ぁ-んァ-ヶー]*$+$");
+		Pattern namePattern = Pattern.compile("^[ぁ-んァ-ヶー]+$");
 		Matcher ItemNameCorrect = namePattern.matcher(itemName);
 		//単価のチェック
-		Pattern numPattern = Pattern.compile("^[0-9].*$");
+		Pattern numPattern = Pattern.compile("^[0-9]+$");
 		Matcher ItemUnitPrice = numPattern.matcher(unitPrice);
 		//URLのチェック
-		Pattern urlPattern = Pattern.compile("(.*)[^\\.jpg]+$");
+		Pattern urlPattern = Pattern.compile("^(.*)(\\.jpg)+$");
 		Matcher ItemUrl = urlPattern.matcher(URL);
 		//寸法のチェック
 		Pattern sizePattern = Pattern.compile("[0-99]+x+[0-99]+x+[0-99]+$");
 		Matcher ItemSize = sizePattern.matcher(size);
-
-		if(!"".equals(itemNo) && ItemNo.matches()){
-
-		}else{
+		boolean inputFlg = true;
+		String error = "";
+		if(!"".equals(itemNo) && !ItemNo.matches()){
 			String param = "ItemNo";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemNo", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}
-
 		if("".equals(itemName)){
 			String param = "ItemName";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemName", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}
-
 		if("".equals(size)){
 			String param = "ItemSize";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemSize", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}
 
-		if(ItemNameCorrect.matches()){
-
-		}else{
+		if(!ItemNameCorrect.matches()){
 			String param = "ItemNameCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemNameCorrect", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}
-
-		if(ItemUrl.matches()){
+		if(!ItemUrl.matches()){
 			String param = "ItemUrl";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemUrl", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}else{
 
 		}
-
-		if(ItemUnitPrice.matches()){
-
-		}else{
+		if(!ItemUnitPrice.matches()){
 			String param = "ItemUnitPrice";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemUnitPrice", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}
-
-		if(ItemSize.matches()){
-
-		}else{
+		if(!ItemSize.matches()){
 			String param = "ItemSizeCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			String erro = msgresult.getString(param); //errorメッセージ
-			request.setAttribute("errorItemSizeCorrect", erro);
-			checkFlg=0;
-			result = "failure";
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
 		}
 
-		if(checkFlg==1){
+		if(inputFlg){
 			ItemVo itemVo = new ItemVo();
-			ItemDao itemDao = new ItemDao(connection);
 			itemVo.setItemNo(itemNo);
 			itemVo.setItemName(itemName);
 			itemVo.setItemURL(URL);
@@ -138,15 +108,18 @@ public class InsertCheckBean implements  FullneflowerBean{
 			itemVo.setSize(size);
 			itemVo.setAssortmentCode(assortment);
 			itemVo.setCategoryCode(category);
+
 			request.setAttribute("itemVo", itemVo);
-			List<ItemVo> itemList = itemDao.selectPoint(itemNo);
-        	request.setAttribute("itemList", itemList);
-        	List<ItemAssortmentVo> assortmentList= itemDao.assortment();
 			request.setAttribute("assortmentList", assortmentList);
-			List<ItemCategoryVo> categoryList= itemDao.category();
 			request.setAttribute("categoryList", categoryList);
 
 			result = "success";
+		} else {
+			result = "failure";
+			request.setAttribute("itemList", itemList);
+			request.setAttribute("assortmentList", assortmentList);
+			request.setAttribute("categoryList", categoryList);
+			request.setAttribute("error", error);
 		}
 		System.out.println(result);
 		return result;

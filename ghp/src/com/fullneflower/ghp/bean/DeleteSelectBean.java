@@ -50,17 +50,18 @@ public class DeleteSelectBean implements  FullneflowerBean{
 			ArrayList<ItemVo> dataListChk = new ArrayList<ItemVo>();
 			for(int i=0; i<delItemNo.length; i++){
 				ItemVo itemVo =itemDao.deleteCheck(delItemNo[i]);
-				if(itemVo!=null){
-				dataListChk.add(itemVo);
+				if(itemVo.getItemNo()!=null){
+					dataListChk.add(itemVo);
 				}
 			}
-			/*未削除の項目の数とチェックされたボタンの数を比較
+			/*未削除の項目を検索
+			 * 該当数とチェックされたボタンの数を比較
 			 * 一致しなければ、一覧画面にエラー文を出力
 			 */
-			if(delItemNo.length>dataListChk.size()){
+			if(delItemNo.length != dataListChk.size()){
 				List<ItemVo> itemList= itemDao.selectAll();
 				request.setAttribute("itemList", itemList);
-				String param1= "ItemDeleteSelect";
+				String param1= "ItemDeleted";
 				String error1 = msgresult.getString(param1);
 				request.setAttribute("erro", error1);
 				return "failure";
@@ -75,11 +76,11 @@ public class DeleteSelectBean implements  FullneflowerBean{
 			for(int i=0; i<delItemNo.length; i++){
 				//DAOが取得した結果はリストに
 				ItemVo itemVo =itemDao.deleteSelect(delItemNo[i]);
-				if(itemVo!=null){
+				//itemDao.deleteSelectでnewしてるから、値はなくても、個数（インスタンス）はあるのだ。どうする？
+				if(itemVo.getItemNo() != null){
 					dataList.add(itemVo);
 				}
 			}
-			cm.commit();
 			if(delItemNo.length==dataList.size()){
 				request.setAttribute("dataList", dataList);
 				return "success";

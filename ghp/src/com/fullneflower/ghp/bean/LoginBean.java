@@ -36,7 +36,7 @@ public class LoginBean implements  FullneflowerBean{
 
 			/*担当者番号入力チェック*/
 			if(empNo == null||"".equals(empNo)){
-				String param = "nullError";
+				String param = "logNullError";
 				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 				String erro = msgresult.getString(param); //errorメッセージ
 				request.setAttribute("erro", erro);
@@ -45,7 +45,7 @@ public class LoginBean implements  FullneflowerBean{
 				/*パスワード入力チェック*/
 			}
 			if(passWo == null||"".equals(passWo)){
-				String param = "nullError";
+				String param = "logNullError";
 				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 				String erro = msgresult.getString(param); //errorメッセージ
 				request.setAttribute("erro", erro);
@@ -79,7 +79,7 @@ public class LoginBean implements  FullneflowerBean{
 			}
 			/*DBに該当データがない場合 */
 			else{
-				String param = "error";
+				String param = "logError";
 				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 				String erro = msgresult.getString(param); //errorメッセージ
 				request.setAttribute("erro", erro);

@@ -1,6 +1,7 @@
 package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ public class InsertBean implements  FullneflowerBean{
 	             ItemDao itemDao = new ItemDao(connection);
 	             ItemVo itemVo = new ItemVo();
 
-
+System.out.println(request.getParameter("assortmentCode"));
 
 	            itemVo.setItemNo(request.getParameter("itemNo"));
 	     		itemVo.setItemName(request.getParameter("itemName"));
@@ -46,6 +47,8 @@ public class InsertBean implements  FullneflowerBean{
 		            connectionManager.commit();
 		            System.out.println(result);
 		            if(result == 1){
+		            	List<ItemVo> itemList= itemDao.selectAll();
+		    			request.setAttribute("itemList", itemList);
 		            	return "success";
 		            }else{
 		            	return "failure";

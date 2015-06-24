@@ -14,9 +14,9 @@
 	function exec(num) {
 		if (num == 0) {
 
-			document.forms[0].action.value = "item.InsertCheck";
+			document.myForm.action.value = "item.InsertCheck";
 		} else {
-			document.forms[0].action.value = "item.AllSelect";
+			document.myForm.action.value = "item.AllSelect";
 		}
 		//		alert(url[num]);
 		//		document.myForm.action = url[num];
@@ -38,10 +38,7 @@
 
 					商品情報を新規登録します。<br> 登録内容を入力して、「送信」ボタンを押してください。<br>
 					<form class="errorMessage">
-					${errorItemNo}<br> ${errorItemName} ${errorItemNameCorrect}<br>
-					${errorItemUrl}<br> ${errorItemUnitPrice}<br>
-					${errorItemSize} ${errorItemSizeCorrect}<br>
-					${errorItemRegistered }
+						${error}
 					</form>
 
 					<form name="myForm" action="/ghp/controller" method="post">
@@ -50,53 +47,53 @@
 						<table border="1">
 							<tr>
 								<th>商品番号</th>
-								<td><input type="text" name="itemNo" value="1111"></td>
+								<td><input type="text" name="itemNo" value="4567"></td>
 							</tr>
 							<tr>
 								<th>商品名</th>
-								<td><input type="text" name="itemName"
-									value="${selectVo.itemName }"></td>
+								<td><input type="text" name="itemName" value="あ"></td>
 							</tr>
 							<tr>
 								<th>商品画像(URL)</th>
-								<td><input type="text" name="URL" size="40"
-									value="${selectVo.itemURL }"></td>
+								<td><input type="text" name="URL" size="40" value="fhu.jpg"></td>
 							</tr>
 							<tr>
 								<th>単価</th>
-								<td><input type="text" name="unitPrice"
-									value="${selectVo.unitPrice }"></td>
+								<td><input type="text" name="unitPrice" value=1000></td>
 							</tr>
 							<tr>
 								<th>寸法</th>
-								<td><input type="text" name="size"
-									value="${selectVo.size }"></td>
+								<td><input type="text" name="size" value="3x3x3"></td>
 							</tr>
 							<tr>
 								<th>種別</th>
 
-								<td><select name="assortmentCode">
-										<c:forEach var="assortment" items="${ItemAssortmentVo}">
-										${assortment.assortmentName}
+							<td><select name="assortmentCode">
+							<c:forEach var="assortment" items="${assortmentList}">
+								<option value="${assortment.assortmentCode}"
+								<c:if test="${assortment.assortmentCode==selectVo.assortmentCode }"> selected</c:if>
+								>
+								${assortment.assortmentName}</option>
 							</c:forEach>
-								</select></td>
+					</select></td>
+
 
 							</tr>
 							<tr>
 								<th>カテゴリー</th>
 								<td><select name="categoryCode">
-										<c:forEach var="category" items="${itemCatecoryVo}">
-											<option value="${category.categoryCode}"
-												<c:if test="${category.categoryCode==selectVo.categoryCode }">${category.categoryName}</c:if>>
-											</option>
-										</c:forEach>
-								</select></td>
+							<c:forEach var="category" items="${categoryList}">
+								<option value="${category.categoryCode}"
+									<c:if test="${category.categoryCode==selectVo.categoryCode }"> selected</c:if>
+								>
+								${category.categoryName}</option>
+							</c:forEach>
+					</select></td>
 							</tr>
 						</table>
 
-						<br>
-						<input type="submit" value="送信" onClick="exec(0);"> <input
-							type="hidden" name="action" value=""> <input
+						<br> <input type="submit" value="送信" onClick="exec(0);">
+						<input type="hidden" name="action" value=""> <input
 							type="submit" name="submit" value="戻る" onClick="exec(1);">
 					</form>
 				</center>

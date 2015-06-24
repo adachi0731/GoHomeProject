@@ -20,15 +20,7 @@
 
 		商品情報を更新します。<br> 更新内容を入力して、「送信」ボタンを押してください。<br>
 		<form class="errorMessage">
-
-
-		${errorItemName}
-		${errorItemNameCorrect}<br>
-		${errorItemUrl}<br>
-		${errorItemUnitPrice}<br>
-		${errorItemSize}
-		${errorItemSizeCorrect}<br>
-		${ItemDeleted}
+		${error}
 </form>
 
 

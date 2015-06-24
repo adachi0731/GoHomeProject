@@ -252,7 +252,7 @@ public class ItemDao {
 			"							i.unit_price,i.size,a.assortment_name,c.category_name " +
 			"				FROM item i INNER JOIN item_assortment a ON " +
 			"				i.assortment_code=a.assortment_code INNER JOIN item_category c ON " +
-			"				i.category_code=c.category_code ORDER BY ITEM_NO ASC";
+			"				i.category_code=c.category_code WHERE i.active_flg='1' ORDER BY ITEM_NO ASC";
 
 
 

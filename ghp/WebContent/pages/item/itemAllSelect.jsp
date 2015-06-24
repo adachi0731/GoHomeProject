@@ -8,9 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var url = new Array("/ghp/pages/item/itemAdd.jsp", "/ghp/controller");
+//	var url = new Array("/ghp/controller", "/ghp/pages/item/itemAllSelect.jsp");
+	//これはテキスト実装編のP43のまま
+	//submitとbuttonの違いだけ
 	function exec(num) {
-		document.myForm.action = url[num];
+		if (num == 0) {
+			document.myForm.action.value="item.Pulldown";
+		}else {
+			document.myForm.action.value="item.DeleteSelect";
+		}
 	}
 </script>
 </head>
@@ -27,14 +33,14 @@
 				<center>
 					<h2>商品情報メンテナンス</h2>
 					<br>
-					<form class="errorMessage">${erro}</form>
+					<font color="Red" class="errorMessage">${erro}</font>
 					<br> 商品情報のメンテナンスを行います。<br>
 					新規に取扱商品を追加する場合は、「商品追加」ボタンを押してください。<br>
 					登録済み商品の情報を変更するには、商品名のリンクをクリックしてください。<br>
 					商品を削除する場合は、リストの右にある「削除」をチェックし、「削除」ボタンを押してください。<br> <br>
 
 
-					<form name="myForm">
+					<form name="myForm" action="/ghp/controller" method="post">
 						<table border=1 style="color: black">
 							<tr>
 								<td>商品番号</td>
@@ -62,13 +68,10 @@
 
 						</table>
 
-						<br> <input type="submit" value="商品追加" onClick="exec(0);">
-
-						<input type="submit" name="delete" value="削除" onClick="exec(1);">
-						<input type="hidden" name="action" value="item.DeleteSelect">
-					</form>
-
-
+						<br><input type="submit" value="商品追加" onClick="exec(0);"/>
+			<input type="submit" value="削除" onClick="exec(1);"/>
+			<input type="hidden" name="action" value="">
+		</form>
 				</center>
 			</td>
 		</tr>
