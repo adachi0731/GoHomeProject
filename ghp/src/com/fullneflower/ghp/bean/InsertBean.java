@@ -2,6 +2,7 @@ package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,44 +17,49 @@ public class InsertBean implements  FullneflowerBean{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		// TODO 自動生成されたメソッド・スタブ
-		 ConnectionManager connectionManager = new ConnectionManager();
-	        try {
-	            Connection connection = connectionManager.getConnection();
-	             ItemDao itemDao = new ItemDao(connection);
-	             ItemVo itemVo = new ItemVo();
+		ConnectionManager connectionManager = new ConnectionManager();
+		try {
+			Connection connection = connectionManager.getConnection();
+			ItemDao itemDao = new ItemDao(connection);
+			ItemVo itemVo = new ItemVo();
 
-System.out.println(request.getParameter("assortmentCode"));
+			System.out.println(request.getParameter("assortmentCode"));
 
-	            itemVo.setItemNo(request.getParameter("itemNo"));
-	     		itemVo.setItemName(request.getParameter("itemName"));
-	     		itemVo.setItemURL(request.getParameter("URL"));
-	     		int untiPrice=  Integer.parseInt(request.getParameter("unitPrice"));
-	     		itemVo.setUnitPrice(untiPrice);
-	     		itemVo.setSize(request.getParameter("size"));
-	     		itemVo.setAssortmentCode(request.getParameter("assortment"));
-	     		itemVo.setCategoryCode(request.getParameter("category"));
-	     		System.out.println("category:"+request.getParameter("category"));
-	     		System.out.println(itemVo.getItemNo());
-	     		System.out.println(itemVo.getItemName());
-	     		System.out.println(itemVo.getItemURL());
-	     		System.out.println(itemVo.getSize());
-	     		System.out.println(itemVo.getAssortmentCode());
-	     		System.out.println(itemVo.getCategoryCode());
+			itemVo.setItemNo(request.getParameter("itemNo"));
+			itemVo.setItemName(request.getParameter("itemName"));
+			itemVo.setItemURL(request.getParameter("URL"));
+			int untiPrice=  Integer.parseInt(request.getParameter("unitPrice"));
+			itemVo.setUnitPrice(untiPrice);
+			itemVo.setSize(request.getParameter("size"));
+			itemVo.setAssortmentCode(request.getParameter("assortment"));
+			itemVo.setCategoryCode(request.getParameter("category"));
+			System.out.println("category:"+request.getParameter("category"));
+			System.out.println(itemVo.getItemNo());
+			System.out.println(itemVo.getItemName());
+			System.out.println(itemVo.getItemURL());
+			System.out.println(itemVo.getSize());
+			System.out.println(itemVo.getAssortmentCode());
+			System.out.println(itemVo.getCategoryCode());
+			String complete="";
+			//List<ItemVo> insertCheck= itemDao.insertCheck(itemVo);
 
-	     		//List<ItemVo> insertCheck= itemDao.insertCheck(itemVo);
+			//if(insertCheck==null){
+			int result = itemDao.insert(itemVo);
+			connectionManager.commit();
+			System.out.println(result);
+			if(result == 1){
+				List<ItemVo> itemList= itemDao.selectAll();
+				request.setAttribute("itemList", itemList);
+				String param = "ItemRegisteredCheck";
+				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+				complete = msgresult.getString(param);
+				request.setAttribute("complete", complete);
 
-				//if(insertCheck==null){
-					int result = itemDao.insert(itemVo);
-		            connectionManager.commit();
-		            System.out.println(result);
-		            if(result == 1){
-		            	List<ItemVo> itemList= itemDao.selectAll();
-		    			request.setAttribute("itemList", itemList);
-		            	return "success";
-		            }else{
-		            	return "failure";
-		            }
-				/*}else{
+				return "success";
+			}else{
+				return "failure";
+			}
+			/*}else{
 					String param = "ItemRegistered";
 					ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 					String erro = msgresult.getString(param); //errorメッセージ
@@ -62,12 +68,12 @@ System.out.println(request.getParameter("assortmentCode"));
 				}*/
 
 
-	        } catch (RuntimeException e) {
-	            connectionManager.rollback();
-	            throw e;
-	        } finally {
-	            connectionManager.closeConnection();
-	        }
+		} catch (RuntimeException e) {
+			connectionManager.rollback();
+			throw e;
+		} finally {
+			connectionManager.closeConnection();
+		}
 	}
 
 }

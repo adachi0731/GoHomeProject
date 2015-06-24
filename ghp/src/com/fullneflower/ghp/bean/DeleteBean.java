@@ -35,7 +35,7 @@ public class DeleteBean implements  FullneflowerBean{
 		/*配列の値を取り出して入れ物に入れる*/
 		String[] delItemNo = request.getParameterValues("delItemNo");
 		ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-
+		String complete = "";
 		try{
 			int resultCnt=0;
 			for(int i=0; i<delItemNo.length; i++){
@@ -47,6 +47,10 @@ public class DeleteBean implements  FullneflowerBean{
 					cm.commit();
 					List<ItemVo> itemList= itemDao.selectAll();
 					request.setAttribute("itemList", itemList);
+					String param = "ItemDeleteCheck";
+					msgresult = ResourceBundle.getBundle("Message");
+					complete = msgresult.getString(param);
+					request.setAttribute("complete", complete);
 					return "success";
 				}
 			}

@@ -33,6 +33,7 @@
 				<center>
 					<h2>商品情報メンテナンス</h2>
 					<br>
+					<font color="BLUE" class="completeMessage">${complete } </font>
 					<font color="Red" class="errorMessage">${erro}</font>
 					<br> 商品情報のメンテナンスを行います。<br>
 					新規に取扱商品を追加する場合は、「商品追加」ボタンを押してください。<br>

@@ -24,3 +24,8 @@ table.style{
     color: red;
     font: bold;
 }
+
+.completeMessage{
+    color: blue;
+    font: bold;
+}

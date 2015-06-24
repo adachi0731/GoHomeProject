@@ -59,7 +59,7 @@ public class UpdateBean implements  FullneflowerBean{
 			itemV.setSize(request.getParameter("size"));
 			itemV.setAssortmentCode(request.getParameter("assortment"));
 			itemV.setCategoryCode(request.getParameter("category"));
-
+			String complete ="";
 			/*
 			 * Voの値が取得できているかの確認用
 			System.out.println(itemV.getItemNo());
@@ -83,6 +83,10 @@ public class UpdateBean implements  FullneflowerBean{
 				cm.commit();
 				List<ItemVo> itemList = itemD.selectAll();
             	request.setAttribute("itemList", itemList);
+            	String param = "ItemAddCheck";
+				ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+				complete = msgresult.getString(param);
+				request.setAttribute("complete", complete);
 				re = "success";
 			}else{
 				String param = "ItemDeleted";
