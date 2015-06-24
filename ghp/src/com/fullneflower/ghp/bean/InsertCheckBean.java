@@ -57,7 +57,7 @@ public class InsertCheckBean implements  FullneflowerBean{
 		Matcher ItemSize = sizePattern.matcher(size);
 		boolean inputFlg = true;
 		String error = "";
-		if(!"".equals(itemNo) && !ItemNo.matches()){
+		if("".equals(itemNo) || !ItemNo.matches()){
 			String param = "ItemNo";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
@@ -68,20 +68,26 @@ public class InsertCheckBean implements  FullneflowerBean{
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
-		}
-		if("".equals(size)){
-			String param = "ItemSize";
-			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			error += "<br>" + msgresult.getString(param); //errorメッセージ
-			inputFlg = false;
-		}
-
-		if(!ItemNameCorrect.matches()){
+		}else if(!ItemNameCorrect.matches()){
 			String param = "ItemNameCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
 		}
+
+		if("".equals(size)){
+			String param = "ItemSize";
+			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
+		}else if(!ItemSize.matches()){
+			String param = "ItemSizeCorrect";
+			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
+		}
+
+
 		if("".equals(URL)){
 
 		}else if(!ItemUrl.matches()){
@@ -90,18 +96,14 @@ public class InsertCheckBean implements  FullneflowerBean{
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
 		}
+
 		if(!ItemUnitPrice.matches()){
 			String param = "ItemUnitPrice";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
 		}
-		if(!ItemSize.matches()){
-			String param = "ItemSizeCorrect";
-			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			error += "<br>" + msgresult.getString(param); //errorメッセージ
-			inputFlg = false;
-		}
+
 
 		if(inputFlg){
 			ItemVo itemVo = new ItemVo();
