@@ -23,7 +23,6 @@ public class SelectBean implements  FullneflowerBean{
 		/**
 		 * ・selectAll.jspからの値を受け取る
 		 * ・Daoの準備
-		 *
 		 */
 		ConnectionManager cm = null;
 		cm=new ConnectionManager();
