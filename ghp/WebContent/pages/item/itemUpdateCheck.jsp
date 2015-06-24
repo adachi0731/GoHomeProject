@@ -4,6 +4,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript">
+	//	var url = new Array("/ghp/controller", "/ghp/pages/item/itemAllSelect.jsp");
+	//これはテキスト実装編のP43のまま
+	//submitとbuttonの違いだけ
+	function exec(num) {
+		if (num == 0) {
+
+			document.myForm.action.value = "item.Update";
+		} else {
+			document.myForm.action.value = "item.Select";
+		}
+		//		alert(url[num]);
+		//		document.myForm.action = url[num];
+	}
+</script>
 <link href="/ghp/css/menu.css" rel="stylesheet" type="text/css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -16,7 +31,7 @@
 <form class="errorMessage">
 </form>
 
-		<form action="/ghp/controller" method="post">
+		<form name="myForm" action="/ghp/controller" method="post">
 
 			<table border="1">
 				<tr>
@@ -61,14 +76,12 @@
 				</tr>
 			</table>
 
-			<br> <input type="submit" value="登録"> <input
-				type="hidden" name="action" value="item.Update">
-		</form>
-		<form action="/ghp/pages/item/itemUpdate.jsp">
-			<input type="submit" value="戻る">
+			<br>
+ <input type="submit" value="登録" onClick="exec(0);">
+			<input type="hidden" name="action" value="">
+			<input type="submit" value="戻る" onClick="exec(1);">
 
 		</form>
-
 	</center>
 </body>
 

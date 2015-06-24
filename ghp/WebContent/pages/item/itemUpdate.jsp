@@ -8,9 +8,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var url = new Array("item_maint_update_confirm.html", "item_maint.html");
+	//	var url = new Array("/ghp/controller", "/ghp/pages/item/itemAllSelect.jsp");
+	//これはテキスト実装編のP43のまま
+	//submitとbuttonの違いだけ
 	function exec(num) {
-		document.myForm.action = url[num];
+		if (num == 0) {
+
+			document.myForm.action.value = "item.UpdateCheck";
+		} else {
+			document.myForm.action.value = "item.AllSelect";
+		}
+		//		alert(url[num]);
+		//		document.myForm.action = url[num];
 	}
 </script>
 </head>
@@ -24,7 +33,7 @@
 </form>
 
 
-		<form action="/ghp/controller" method="post">
+		<form name="myForm" action="/ghp/controller" method="post">
 
 			<table border="1">
 				<tr>
@@ -76,12 +85,10 @@
 				</tr>
 			</table>
 
-			<br> <input type="submit" value="送信"> <input
-				type="hidden" name="action" value="item.UpdateCheck">
-		</form>
-		<form action="/ghp/pages/item/itemAllSelect.jsp">
-			<input type="submit" name="submit" value="戻る">
-		</form>
+			<br><input type="submit" value="送信" onClick="exec(0);">
+						<input type="hidden" name="action" value=""> <input
+							type="submit" name="submit" value="戻る" onClick="exec(1);">
+					</form>
 
 	</center>
 </body>
