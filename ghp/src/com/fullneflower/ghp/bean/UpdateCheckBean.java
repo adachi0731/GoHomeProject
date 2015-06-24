@@ -53,41 +53,51 @@ public class UpdateCheckBean implements  FullneflowerBean{
 		Matcher ItemSize = sizePattern.matcher(size);
 		boolean inputFlg = true;
 		String error = "";
+		System.out.println("判断："+itemDao.nameCheck(itemNo,itemName));
+
+		if(!itemDao.nameCheck(itemNo,itemName)){
+			String param = "ItemDouble";
+			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
+		}
+
 		if("".equals(itemName)){
 			String param = "ItemName";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
-		}
-		if("".equals(size)){
-			String param = "ItemSize";
-			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			error += "<br>" + msgresult.getString(param); //errorメッセージ
-			inputFlg = false;
-		}
-
-		if(!ItemNameCorrect.matches()){
+		}else if(!ItemNameCorrect.matches()){
 			String param = "ItemNameCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
 		}
-		if(!ItemUrl.matches() && !"".equals(URL)){
+
+		if("".equals(size)){
+			String param = "ItemSize";
+			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
+		}else if(!ItemSize.matches()){
+			String param = "ItemSizeCorrect";
+			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
+		}
+
+
+		if("".equals(URL)){
+
+		}else if(!ItemUrl.matches()){
 			String param = "ItemUrl";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;
-		}else{
-
 		}
+
 		if(!ItemUnitPrice.matches()){
 			String param = "ItemUnitPrice";
-			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
-			error += "<br>" + msgresult.getString(param); //errorメッセージ
-			inputFlg = false;
-		}
-		if(!ItemSize.matches()){
-			String param = "ItemSizeCorrect";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;

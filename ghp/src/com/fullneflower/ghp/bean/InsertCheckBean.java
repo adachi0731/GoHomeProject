@@ -1,6 +1,7 @@
 package com.fullneflower.ghp.bean;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -35,8 +36,8 @@ public class InsertCheckBean implements  FullneflowerBean{
 		String category = request.getParameter("categoryCode");
 		String size = request.getParameter("size");
 		ItemDao itemDao = new ItemDao(connection);
-		List<ItemVo> itemList = itemDao.selectPoint(itemNo);
 		List<ItemVo> itemAllList= itemDao.selectAll();
+		ResultSet doubleCheck = itemDao.Double(itemNo, itemName);
 
 		List<ItemAssortmentVo> assortmentList= itemDao.assortment();
 		List<ItemCategoryVo> categoryList= itemDao.category();
@@ -59,6 +60,14 @@ public class InsertCheckBean implements  FullneflowerBean{
 		String error = "";
 		if("".equals(itemNo) || !ItemNo.matches()){
 			String param = "ItemNo";
+			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
+			error += "<br>" + msgresult.getString(param); //errorメッセージ
+			inputFlg = false;
+		}
+
+
+		if(doubleCheck != null){
+			String param = "ItemDouble";
 			ResourceBundle msgresult = ResourceBundle.getBundle("Message");
 			error += "<br>" + msgresult.getString(param); //errorメッセージ
 			inputFlg = false;

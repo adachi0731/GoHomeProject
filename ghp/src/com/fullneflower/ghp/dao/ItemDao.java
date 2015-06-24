@@ -95,6 +95,7 @@ public class ItemDao {
 			preparedStatement.setString(5, itemV.getAssortmentCode());
 			preparedStatement.setString(6, itemV.getCategoryCode());
 			preparedStatement.setString(7, itemV.getItemNo());
+			preparedStatement.setString(8, itemV.getItemName());
 
 			// SQLの実行
 			int result = preparedStatement.executeUpdate();
@@ -347,37 +348,28 @@ public class ItemDao {
 
 
 	// SQLの定義
-	private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,CATEGORY_CODE,ASSORTMENT_CODE FROM ITEM WHERE ITEM_NO=?";
+	private static String NAMECHECK = "select * from item WHERE ITEM_NO!=? AND ITEM_NAME=?;";
 
 
 	//publicの後ろは～型の返り値を返す
-	public List<ItemVo> selectPoint(String iNo) throws GhpException {
+	public boolean nameCheck(String itemNo,String itemName) throws GhpException {
 		//System.out.println(iNo);
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		try{
 			// SQLの作成(準備)
-			preparedStatement = connection.prepareStatement(SELECT_POINT);
+			preparedStatement = connection.prepareStatement(NAMECHECK);
 			// SQLバインド変数への値設定
-			preparedStatement.setString(1,iNo);
+			preparedStatement.setString(1,itemNo);
+			preparedStatement.setString(2,itemName);
 			// SQLの実行
 			resultSet = preparedStatement.executeQuery();
 			//sqlから取得した値をVoに詰める
-			List<ItemVo> itemList = new ArrayList<ItemVo>();
-			ItemVo itemVo = new ItemVo();
-			while (resultSet.next()) {
-
-				itemVo.setItemName(resultSet.getString("ITEM_NAME"));
-				itemVo.setItemURL(resultSet.getString("ITEM_URL"));
-				itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
-				itemVo.setSize(resultSet.getString("SIZE"));
-				itemVo.setAssortmentCode(resultSet.getString("assortment_code"));
-				itemVo.setCategoryCode(resultSet.getString("category_code"));
-
-				itemList.add(itemVo);
+			if(resultSet.next()) {
+				return false;
 			}
-			return itemList;
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new GhpException("ステートメントの解放に失敗しました", e);
@@ -461,6 +453,7 @@ public class ItemDao {
 				categoryVo.setCategoryName(resultSet.getString("CATEGORY_NAME"));
 				categoryVo.setCategoryExplain(resultSet.getString("EXPLAIN"));
 				categoryList.add(categoryVo);
+
 			}
 			return categoryList;
 		} catch (SQLException e) {
@@ -482,4 +475,91 @@ public class ItemDao {
 			}
 		}
 	}
+
+	// SQLの定義
+			private static String DOUBLE = "SELECT ITEM_NO,ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,CATEGORY_CODE,ASSORTMENT_CODE FROM ITEM WHERE ITEM_NO=? OR ITEM_NAME = ?";
+
+
+			//publicの後ろは～型の返り値を返す
+			public ResultSet Double(String iNo,String iName) throws GhpException {
+				//System.out.println(iNo);
+
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				try{
+					// SQLの作成(準備)
+					preparedStatement = connection.prepareStatement(DOUBLE);
+					// SQLバインド変数への値設定
+					preparedStatement.setString(1,iNo);
+					preparedStatement.setString(2,iName);
+					// SQLの実行
+					resultSet = preparedStatement.executeQuery();
+					return resultSet;
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new GhpException("ステートメントの解放に失敗しました", e);
+				}finally{
+					try{
+						if (preparedStatement != null) {
+							preparedStatement.close();
+							System.out.println("ステートメントの解放に成功しました");
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+						throw new GhpException("ステートメントの解放に失敗しました", e);
+
+					}
+				}
+			}
+
+			// SQLの定義
+			private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,CATEGORY_CODE,ASSORTMENT_CODE FROM ITEM WHERE ITEM_NO=?";
+
+
+			//publicの後ろは～型の返り値を返す
+			public List<ItemVo> selectPoint(String iNo) throws GhpException {
+				//System.out.println(iNo);
+
+				PreparedStatement preparedStatement = null;
+				ResultSet resultSet = null;
+				try{
+					// SQLの作成(準備)
+					preparedStatement = connection.prepareStatement(SELECT_POINT);
+					// SQLバインド変数への値設定
+					preparedStatement.setString(1,iNo);
+					// SQLの実行
+					resultSet = preparedStatement.executeQuery();
+					//sqlから取得した値をVoに詰める
+					List<ItemVo> itemList = new ArrayList<ItemVo>();
+					ItemVo itemVo = new ItemVo();
+					while (resultSet.next()) {
+
+						itemVo.setItemName(resultSet.getString("ITEM_NAME"));
+						itemVo.setItemURL(resultSet.getString("ITEM_URL"));
+						itemVo.setUnitPrice(resultSet.getInt("UNIT_PRICE"));
+						itemVo.setSize(resultSet.getString("SIZE"));
+						itemVo.setAssortmentCode(resultSet.getString("assortment_code"));
+						itemVo.setCategoryCode(resultSet.getString("category_code"));
+
+						itemList.add(itemVo);
+					}
+					return itemList;
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new GhpException("ステートメントの解放に失敗しました", e);
+				}finally{
+					try{
+						if (preparedStatement != null) {
+							preparedStatement.close();
+							System.out.println("ステートメントの解放に成功しました");
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+						throw new GhpException("ステートメントの解放に失敗しました", e);
+
+					}
+				}
+			}
+
+
 }

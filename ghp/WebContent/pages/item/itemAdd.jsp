@@ -47,23 +47,23 @@
 						<table border="1">
 							<tr>
 								<th>商品番号</th>
-								<td><input type="text" name="itemNo" value="32"></td>
+								<td><input type="text" name="itemNo" ></td>
 							</tr>
 							<tr>
 								<th>商品名</th>
-								<td><input type="text" name="itemName" value="fdsf"></td>
+								<td><input type="text" name="itemName" ></td>
 							</tr>
 							<tr>
 								<th>商品画像(URL)</th>
-								<td><input type="text" name="URL" size="40" value="fdhsjka"></td>
+								<td><input type="text" name="URL" size="40" ></td>
 							</tr>
 							<tr>
 								<th>単価</th>
-								<td><input type="text" name="unitPrice" value=あああ></td>
+								<td><input type="text" name="unitPrice" ></td>
 							</tr>
 							<tr>
 								<th>寸法</th>
-								<td><input type="text" name="size" value="234789"></td>
+								<td><input type="text" name="size" ></td>
 							</tr>
 							<tr>
 								<th>種別</th>
