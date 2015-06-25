@@ -10,8 +10,19 @@ import com.fullneflower.ghp.dao.ConnectionManager;
 import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemVo;
-
+/**
+ * インターフェースの実装
+ * @author Owner
+ *
+ */
 public class AllSelectBean implements  FullneflowerBean{
+	/**
+	 * [機能]データベースに入力されている商品を一覧表示する
+	 * [説明]ItemDaoでデータベースに登録されている商品を"list"でItemVoに詰める
+	 * @param HttpServletRequest request, HttpServletResponse response
+	 * @author 坂本
+	 * @return "success"
+	 */
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {

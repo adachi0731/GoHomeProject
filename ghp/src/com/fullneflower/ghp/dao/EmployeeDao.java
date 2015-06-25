@@ -17,6 +17,7 @@ public class EmployeeDao {
 	 * [機 能] コンストラクタ<br>
 	 * [説 明] 引数のコネクションをフィールドに設定する。<br>
 	 * [備 考] なし
+	 * @author 森
 	 * @param connection コネクション
 	 */
 	public EmployeeDao(Connection connection) {
@@ -24,7 +25,7 @@ public class EmployeeDao {
 		this.connection = connection;
 	}
 	/**
-	 * 入力された社員番号とパスワードがデータベースにあるか確認する。
+	 * [機能]入力された社員番号とパスワードがデータベースにあるか確認する。
 	 * @return 該当件数
 	 * @throws GhpException
 	 */

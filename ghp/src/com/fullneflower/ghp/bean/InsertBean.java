@@ -11,9 +11,22 @@ import com.fullneflower.ghp.dao.ConnectionManager;
 import com.fullneflower.ghp.dao.ItemDao;
 import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemVo;
-
+/**
+ * インターフェースの実装
+ * @author 本多
+ */
 public class InsertBean implements  FullneflowerBean{
 
+	/**
+	 * [機能]入力された値をitemVoに詰め、itemDaoのinsert()結果を受け取りreturnでsuccessかfailureを返す
+	 * [説明]入力された値をitemVoに詰める
+	 *       itemDaoのinsert()結果が"1"の時returnに"success"を返す。
+	 *       itemDaoのinsert()結果が"1"以外の時returnに"failure"を返す。
+	 * @author 本多
+	 * @param HttpServletRequest request, HttpServletResponse response
+	 * @return "success" or "failure"
+	 * @throws GhpException
+	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		// TODO 自動生成されたメソッド・スタブ

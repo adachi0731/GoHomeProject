@@ -24,6 +24,7 @@ public class DeleteSelectBean implements  FullneflowerBean{
 	 * @author 森
 	 * @param HttpServletRequest request, HttpServletResponse response
 	 * @return "success" or "failer" or "error"
+	 * @throws GhpException
 	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)throws GhpException{

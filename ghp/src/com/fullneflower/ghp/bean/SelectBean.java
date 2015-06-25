@@ -12,18 +12,26 @@ import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemAssortmentVo;
 import com.fullneflower.ghp.vo.ItemCategoryVo;
 import com.fullneflower.ghp.vo.ItemVo;
-
+/**
+ * インターフェースの実装
+ * @author 木村
+ *
+ */
 public class SelectBean implements  FullneflowerBean{
 	/**
-	 * Selectに関する処理をします。
+	 *[機能] 入力された値(商品番号)をitemVoにつめる
+	 *       それを基に行ったitemDaoのselectPoint()の結果を受け取り、Listに詰める
+	 *[説明] itemDaoから受け取った結果を基に、"selectVo""itemVo""assortmentList""categoryList"をListに詰める
+	 *@author 木村
+	 *@param HttpServletRequest request, HttpServletResponse response
+	 *@return "success" or "failure"
+	 *@throws GhpException
+	 *
 	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		// TODO 自動生成されたメソッド・スタブ
-		/**
-		 * ・selectAll.jspからの値を受け取る
-		 * ・Daoの準備
-		 */
+
 		ConnectionManager cm = null;
 		cm=new ConnectionManager();
 		try{

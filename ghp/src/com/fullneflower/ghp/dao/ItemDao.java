@@ -16,7 +16,6 @@ public class ItemDao {
 	/** コネクション */
 	private Connection connection;
 	/**
-	 *
 	 * [機 能] コンストラクタ<br>
 	 * [説 明] 引数のコネクションをフィールドに設定する。<br>
 	 * [備 考] なし
@@ -38,7 +37,7 @@ public class ItemDao {
 	 * [機 能] レコードを登録するメソッド<br>
 	 * [説 明] 引数の部署データを部署テーブルに登録する。<br>
 	 * [備 考] なし
-	 * @param
+	 * @paramb ItemVo
 	 * @return 登録件数
 	 */
 	public int insert(ItemVo itemVo) {
@@ -73,7 +72,7 @@ public class ItemDao {
 			"ITEM_URL=?, UNIT_PRICE=?, SIZE=?, " +
 			"ASSORTMENT_CODE=?, CATEGORY_CODE=? " +
 			"WHERE ITEM_NO=?";
-	/* [備考]なし
+	/** [備考]なし
 	 * @author 足立
 	 * @param itemV
 	 * @return 更新件数
@@ -162,8 +161,7 @@ public class ItemDao {
 	}
 
 	/**
-	 * [機能]
-	 * [説明]
+	 * [機能]stockが"0"の商品を検索し、"0"の時に値をitemVoにsetする
 	 * @author 森
 	 * @param itemNo
 	 * @return item
@@ -216,6 +214,13 @@ public class ItemDao {
 			}
 		}
 	}
+
+	/**
+	 * [機能]削除項目にチェックのついた商品のactive_flgを"0"に更新する
+	 * @author 森
+	 * @param itemNo
+	 * @return 検索結果
+	 */
 	private static String DELETE = "UPDATE ITEM SET active_flg=0 WHERE item_no=?";
 
 	public int delete(String itemNo)throws GhpException {
@@ -255,14 +260,12 @@ public class ItemDao {
 			"				i.assortment_code=a.assortment_code INNER JOIN item_category c ON " +
 			"				i.category_code=c.category_code WHERE i.active_flg='1' ORDER BY ITEM_NO ASC";
 
-
-
 	/**
-	 *
 	 * [機 能] 全件参照するメソッド<br>
 	 * [説 明] 部署テーブルの全件を参照する。<br>
 	 * [備 考] なし
-	 * @return
+	 * @author 坂本
+	 * @return itemList
 	 */
 	public List<ItemVo> selectAll() {
 		PreparedStatement preparedStatement = null;
@@ -302,10 +305,15 @@ public class ItemDao {
 		}
 	}
 
-
+/**
+ * [機能]入力された値が既に登録されている値であるかを確認
+ * @author 本多
+ * @param itemVo
+ * @return deleteCheck
+ *
+ */
 	// SQLの定義
 	private static String INSERTCHECK = "SELECT * FROM ITEM WHERE ITEM_NO = ? OR ITEM_NAME = ?";
-
 
 	//publicの後ろは～型の返り値を返す
 	public List<ItemVo> insertCheck(ItemVo itemVo) throws GhpException {
@@ -346,10 +354,14 @@ public class ItemDao {
 		}
 	}
 
-
+/**
+ * [機能](更新)入力された"商品名"(ITEM_NAME)が既に登録されている値であるかを確認
+ * @author 本多
+ * @param itemName
+ * @return "false" or "true"
+ */
 	// SQLの定義
 	private static String NAMECHECK = "select * from item WHERE ITEM_NO!=? AND ITEM_NAME=?;";
-
 
 	//publicの後ろは～型の返り値を返す
 	public boolean nameCheck(String itemNo,String itemName) throws GhpException {
@@ -394,8 +406,8 @@ public class ItemDao {
 	 *
 	 * [機 能] 全件参照するメソッド<br>
 	 * [説 明] 部署テーブルの全件を参照する。<br>
-	 * [備 考] なし
-	 * @return
+	 * @author 坂本
+	 * @return assortmentList
 	 */
 	public List<ItemAssortmentVo> assortment() {
 		PreparedStatement preparedStatement = null;
@@ -437,8 +449,8 @@ public class ItemDao {
 	 *
 	 * [機 能] 全件参照するメソッド<br>
 	 * [説 明] 部署テーブルの全件を参照する。<br>
-	 * [備 考] なし
-	 * @return
+	 * @author 坂本
+	 * @return categoryList
 	 */
 	public List<ItemCategoryVo> category() {
 		PreparedStatement preparedStatement = null;
@@ -478,8 +490,14 @@ public class ItemDao {
 
 	// SQLの定義
 			private static String DOUBLE = "SELECT ITEM_NO,ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,CATEGORY_CODE,ASSORTMENT_CODE FROM ITEM WHERE ITEM_NO=? OR ITEM_NAME = ?";
-
-
+/**
+ * [機能](登録) 商品番号(item_no)と商品名(item_name)が既に登録された値であるかを確認
+ * @author 本多
+ * @param iNo
+ * @param iName
+ * @return "false" or "true"
+ * @throws GhpException
+ */
 			//publicの後ろは～型の返り値を返す
 			public boolean Double(String iNo,String iName) throws GhpException {
 				//System.out.println(iNo);
@@ -517,8 +535,13 @@ public class ItemDao {
 
 			// SQLの定義
 			private static String SELECT_POINT = "SELECT ITEM_NAME,ITEM_URL,UNIT_PRICE,SIZE,CATEGORY_CODE,ASSORTMENT_CODE FROM ITEM WHERE ITEM_NO=?";
-
-
+/**
+ * [機能]全件参照するメソッド
+ * @author 木村
+ * @param iNo
+ * @return itemList
+ * @throws GhpException
+ */
 			//publicの後ろは～型の返り値を返す
 			public List<ItemVo> selectPoint(String iNo) throws GhpException {
 				//System.out.println(iNo);

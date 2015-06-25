@@ -24,6 +24,7 @@ public class DeleteBean implements  FullneflowerBean{
 	 *@author 森
 	 *@param HttpServletRequest request, HttpServletResponse response
 	 *@return "success" or "failer"
+	 *@throws GhpException
 	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
@@ -51,7 +52,7 @@ public class DeleteBean implements  FullneflowerBean{
 					msgresult = ResourceBundle.getBundle("Message");
 					complete = msgresult.getString(param);
 					request.setAttribute("complete", complete);
-					return "success";
+
 				}
 			}
 		}catch(GhpException e){
@@ -60,6 +61,6 @@ public class DeleteBean implements  FullneflowerBean{
 		}finally{
 			cm.closeConnection();
 		}
-		return"failure";
+		return "success";
 	}
 }

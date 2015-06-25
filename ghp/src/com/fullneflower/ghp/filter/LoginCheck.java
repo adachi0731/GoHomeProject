@@ -30,27 +30,17 @@ public class LoginCheck implements Filter {
 	 */
 	public void destroy() {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**
+	 * [機能](フィルター) セッションの保持を確認
+	 * @author 本多
+	 * @param request response chain
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 * hiddenから値を持ってきてjudgeに入れる
-	 * getServletPath()でフィルターにかかる前の場所をpathに入れる
 	 *
-	 * if(もしセッションがつながっていたら){
-	 * 				そのまま
-	 * }else if(もしつながっていなかったら){
-	 * 				if(もしログイン画面＝pathなら ※最初の起動時にログイン画面に遷移するため){
-	 * 					そのまま移動
-	 * 				}else if(もしhiddenの値とactionの中身が一緒ならば ※コントローラーにつなげるため)
-	 * 					そのまま移動
-	 * 				}else{
-	 * 					はじいてログイン画面へ強制的に移動させる
-	 * }
-	 *
-	 *		！！！！！問題発生！！！！！！！
-	 *		セッションが保持されたままになる？
+     */
+	 /*hiddenから値を持ってきてjudgeに入れる
+	  getServletPath()でフィルターにかかる前の場所をpathに入れる
 	 */
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

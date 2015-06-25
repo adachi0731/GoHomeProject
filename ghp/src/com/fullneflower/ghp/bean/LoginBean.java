@@ -19,9 +19,10 @@ import com.fullneflower.ghp.vo.EmployeeVo;
 public class LoginBean implements  FullneflowerBean{
 	//private static final long serialVersionUID = 1L;
 	/**
-	 * ・入力された値をチェックし、
-	 * 不正なデータが入力された場合はfailureを返す。
-	 * DAOに送り、返ってきた結果が1であればsuccessを返す。0であれば、failureを返す。
+	 * [機能]入力された値をチェックする
+	 * [説明]不正なデータが入力された場合はfailureを返す。
+	 *       DAOに送り、返ってきた結果が1であればsuccessを返す。0であれば、failureを返す。
+	 * @author 森
 	 * @return 該当件数
 	 * @param request,response
 	 * @throws GhpException

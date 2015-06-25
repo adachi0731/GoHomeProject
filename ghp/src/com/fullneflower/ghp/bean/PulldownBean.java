@@ -12,9 +12,21 @@ import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemAssortmentVo;
 import com.fullneflower.ghp.vo.ItemCategoryVo;
 
-
+/**
+ * インターフェース実装
+ * @author 本多
+ */
 public class PulldownBean implements  FullneflowerBean{
 
+	/**
+	 * [機能]プルダウン「種別」「カテゴリー」内の項目を表示する
+	 * [説明]プルダウンの項目である種別(assortment)、カテゴリー(category)内の項目を
+	 *       データベースから呼び出し、Listに詰め表示させる
+	 * @author 本多
+	 * @param HttpServletRequest request, HttpServletResponse response
+	 * @return "success"
+	 * @throws GhpException
+	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		// TODO 自動生成されたメソッド・スタブ

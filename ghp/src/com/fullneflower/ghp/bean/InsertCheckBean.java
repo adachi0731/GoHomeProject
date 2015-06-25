@@ -15,9 +15,23 @@ import com.fullneflower.ghp.exception.GhpException;
 import com.fullneflower.ghp.vo.ItemAssortmentVo;
 import com.fullneflower.ghp.vo.ItemCategoryVo;
 import com.fullneflower.ghp.vo.ItemVo;
-
+/**
+ * インターフェースの実装
+ * @author 本多
+ *
+ */
 public class InsertCheckBean implements  FullneflowerBean{
-
+/**
+ * [機能]入力された値が「不正文字」「形式外」「重複データ」でないかを確認する
+ * [説明]入力された値が「不正文字」「形式外」「重複データ」でない時
+ *       returnに"success"を返しitemAddCheck.jspへ画面推移
+ *       入力された値が「不正文字」「形式外」「重複データ」である時
+ *       returnに"failer"を返しpulludownBean→itemsAdd.jspへ画面推移し再入力
+ * @author 本多
+ * @param HttpServletRequest request, HttpServletResponse response
+ * @return "success" or "failure"
+ * @throws GhpException
+ */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		ConnectionManager connectionManager = new ConnectionManager();

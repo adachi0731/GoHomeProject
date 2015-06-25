@@ -1,6 +1,11 @@
 package com.fullneflower.ghp.exception;
-
+/**
+ * 例外クラス
+ * @author 森
+ *
+ */
 public class GhpException extends Exception {
+
 
 	public GhpException(){
 		super();

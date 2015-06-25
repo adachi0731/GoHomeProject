@@ -16,8 +16,24 @@ import com.fullneflower.ghp.vo.ItemAssortmentVo;
 import com.fullneflower.ghp.vo.ItemCategoryVo;
 import com.fullneflower.ghp.vo.ItemVo;
 
+/**
+ * インターフェースの実装
+ * @author 本多
+ *
+ */
 public class UpdateCheckBean implements  FullneflowerBean{
 
+	/**
+	 * [機能]入力された値が「不正文字」「形式外」「重複データ」でないかを確認
+	 * [説明]入力された値が「不正文字」「形式外」「重複データ」でない時、
+	 *       returnに"success"を返し、itemUpdateCheck.jspへ画面推移
+	 *       入力された値が「不正文字」「形式外」「重複データ」である時、
+	 *       returnに"failure"を返し、itemAllSelect.jspへ画面推移
+	 * @author 本多
+	 * @param HttpServletRequest request, HttpServletResponse response
+	 * @return "success" or "failure"
+	 * @throws GhpException
+	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws GhpException {
 		// TODO 自動生成されたメソッド・スタブ
