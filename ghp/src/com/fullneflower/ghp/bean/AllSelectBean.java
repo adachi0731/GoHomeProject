@@ -28,7 +28,10 @@ public class AllSelectBean implements  FullneflowerBean{
 			//request.setAttribute("itemVo", tmpVo);
 
 			return "success";
-		} finally {
+		}catch(Exception e){
+			cm.rollback();
+			throw new GhpException("UpdateCheckBeanで失敗しました", e);
+		}finally{
 			cm.closeConnection();
 		}
 	}

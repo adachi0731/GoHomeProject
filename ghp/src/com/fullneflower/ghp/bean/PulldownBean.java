@@ -20,18 +20,23 @@ public class PulldownBean implements  FullneflowerBean{
 		// TODO 自動生成されたメソッド・スタブ
 		ConnectionManager cm = null;
 		cm=new ConnectionManager();
+		try{
+			Connection connection = cm.getConnection();
+			ItemDao itemDao= new ItemDao(connection);
 
-		Connection connection = cm.getConnection();
-		ItemDao itemDao= new ItemDao(connection);
+			//assortmentメソッドをassortmentListにつめる
+			List<ItemAssortmentVo> assortmentList= itemDao.assortment();
+			request.setAttribute("assortmentList", assortmentList);
+			//categoryメソッドをcategoryListにつめる
+			List<ItemCategoryVo> categoryList= itemDao.category();
+			request.setAttribute("categoryList", categoryList);
 
-		//assortmentメソッドをassortmentListにつめる
-		List<ItemAssortmentVo> assortmentList= itemDao.assortment();
-		request.setAttribute("assortmentList", assortmentList);
-		//categoryメソッドをcategoryListにつめる
-		List<ItemCategoryVo> categoryList= itemDao.category();
-		request.setAttribute("categoryList", categoryList);
-
-		return "success";
-
+			return "success";
+		}catch(Exception e){
+			cm.rollback();
+			throw new GhpException("UpdateCheckBeanで失敗しました", e);
+		}finally{
+			cm.closeConnection();
+		}
 	}
 }

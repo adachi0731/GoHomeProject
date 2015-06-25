@@ -23,11 +23,11 @@ public class LogoutBean  implements  FullneflowerBean{
 			 if(session != null){
 				 session.invalidate();
 			 }
-			 return "failure";
+
 		 }catch(Exception e){
 			 /*エラーが起きたのでシステムエラー画面へ遷移*/
 			 e.printStackTrace();
-			 return "error";
 		 }
+		return "success";
 	}
 }
