@@ -481,7 +481,7 @@ public class ItemDao {
 
 
 			//publicの後ろは～型の返り値を返す
-			public ResultSet Double(String iNo,String iName) throws GhpException {
+			public boolean Double(String iNo,String iName) throws GhpException {
 				//System.out.println(iNo);
 
 				PreparedStatement preparedStatement = null;
@@ -494,7 +494,10 @@ public class ItemDao {
 					preparedStatement.setString(2,iName);
 					// SQLの実行
 					resultSet = preparedStatement.executeQuery();
-					return resultSet;
+					if(resultSet.next()) {
+						return false;
+					}
+					return true;
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new GhpException("ステートメントの解放に失敗しました", e);

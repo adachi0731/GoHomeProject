@@ -16,7 +16,7 @@
 
 			document.myForm.action.value = "item.Insert";
 		} else {
-			document.myForm.action.value = "item.AllSelect";
+			document.myForm.action.value = "item.Pulldown";
 		}
 		//		alert(url[num]);
 		//		document.myForm.action = url[num];
